@@ -49,6 +49,7 @@ namespace EmergencyManagementSystem.Common.API
             services.AddScoped<UserBLL>();
             services.AddScoped<UserDAL>();
             services.AddScoped<UserValidation>();
+            services.AddScoped<AddressDAL>();
 
 
             IMapper mapper = new MapperConfiguration(cfg =>

@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EmergencyManagementSystem.Common.Entities\EmergencyManagementSystem.Common.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

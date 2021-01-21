@@ -13,13 +13,11 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
     public class UserValidation : BaseValidation<User>
     {
         private readonly EmployeeDAL _employeeDAL;
+
         public UserValidation(EmployeeDAL employeeDAL)
         {
             _employeeDAL = employeeDAL;
-        }
 
-        public UserValidation()
-        {
             RuleFor(d => d.EmployeeId)
                 .NotNull()
                 .NotEmpty()
