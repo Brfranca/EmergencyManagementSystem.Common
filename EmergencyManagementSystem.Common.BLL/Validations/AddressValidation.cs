@@ -20,8 +20,10 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
 
             RuleFor(e => e.CEP)
                 .NotNull()
-                .MaximumLength(8)
-                .WithMessage("Favor inserir o CEP");
+                .NotEmpty()
+                .WithMessage("Favor inserir o CEP")
+                .Length(8)
+                .WithMessage("O CEP deve conter 8 caracteres.");
 
             RuleFor(e => e.City)
                 .NotNull()
@@ -33,13 +35,36 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("Nome da cidade não deve conter números e caracteres especiais.");
 
             RuleFor(e => e.District)
-                .NotNull()
-                .WithMessage("O bairro deve ser informado.")
                 .Length(3, 60)
                 .WithMessage("O bairro deve ter entre 3 e 60 letras.")
                 .Must(IsValidName)
                 .WithMessage("Nome do bairro não deve conter números e caracteres especiais.");
 
+            RuleFor(e => e.Complement)
+                .Length(3, 60)
+                .WithMessage("O complemento deve ter entre 3 e 60 letras.");
+
+            RuleFor(e => e.Number)
+                .Length(3, 10)
+                .WithMessage("O número deve ter entre 3 e 10 letras.");
+
+            RuleFor(e => e.Reference)
+                .Length(3, 60)
+                .WithMessage("A referência deve ter entre 3 e 60 letras");
+
+            RuleFor(e => e.State)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("O estado deve ser informado.")
+                .Length(2)
+                .WithMessage("O estado deve conter 2 letras.");
+
+            RuleFor(e => e.Street)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("A rua deve ser informada.")
+                .Length(3, 60)
+                .WithMessage("A rua deve conter entre 3 e 60 letras.");
 
         }
 
