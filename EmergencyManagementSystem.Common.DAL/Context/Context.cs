@@ -25,14 +25,14 @@ namespace EmergencyManagementSystem.Common.DAL
     }
 
     //usar apenas para criar a migration
-    //public class ContextFactory : IDesignTimeDbContextFactory<Context>
-    //{
-    //    public Context CreateDbContext(string[] args)
-    //    {
-    //        var optionsBuilder = new DbContextOptionsBuilder<Context>();
-    //        optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS; Initial Catalog=EMS-Common;Integrated Security=true");
+    public class ContextFactory : IDesignTimeDbContextFactory<Context>
+    {
+        public Context CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<Context>();
+            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS; Initial Catalog=EMS-Common;Integrated Security=true");
 
-    //        return new Context(optionsBuilder.Options);
-    //    }
-    //}
+            return new Context(optionsBuilder.Options);
+        }
+    }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.BLL;
@@ -11,8 +8,6 @@ using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,7 +44,12 @@ namespace EmergencyManagementSystem.Common.API
             services.AddScoped<UserBLL>();
             services.AddScoped<UserDAL>();
             services.AddScoped<UserValidation>();
+            services.AddScoped<AddressBLL>();
             services.AddScoped<AddressDAL>();
+            services.AddScoped<AddressValidation>();
+            services.AddScoped<EmployeeBLL>();
+            services.AddScoped<EmployeeDAL>();
+            services.AddScoped<EmployeeValidation>();
 
 
             IMapper mapper = new MapperConfiguration(cfg =>

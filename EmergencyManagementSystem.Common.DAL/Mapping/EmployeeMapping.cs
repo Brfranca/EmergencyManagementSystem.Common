@@ -28,10 +28,10 @@ namespace EmergencyManagementSystem.Common.DAL.Mapping
                 .HasMaxLength(11)
                 .IsRequired();
 
-            builder.Property(d => d.CRM)
-                .HasColumnName("CRM")
+            builder.Property(d => d.ProfessionalRegistration)
+                .HasColumnName("ProfessionalRegistration")
                 .HasColumnType("varchar")
-                .HasMaxLength(20);
+                .HasMaxLength(50);
 
             builder.Property(d => d.Email)
                 .HasColumnName("Email")
@@ -45,10 +45,9 @@ namespace EmergencyManagementSystem.Common.DAL.Mapping
                 .HasMaxLength(100)
                 .IsRequired();
 
-            builder.Property(d => d.Occupation)
-                .HasColumnName("Occupation")
-                .HasColumnType("smallint")
-                .IsRequired();
+            builder.HasOne(d => d.Occupation)
+                .WithMany()
+                .HasForeignKey(d => d.OccupationId);
 
             builder.Property(d => d.RG)
                 .HasColumnName("RG")

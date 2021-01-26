@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmergencyManagementSystem.Common.DAL.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210116065313_firstMigration")]
-    partial class firstMigration
+    [Migration("20210126214929_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,10 +96,8 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
                         .HasColumnType("varchar(11)")
                         .HasColumnName("CPF");
 
-                    b.Property<string>("CRM")
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)")
-                        .HasColumnName("CRM");
+                    b.Property<short>("Company")
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -113,9 +111,13 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
                         .HasColumnType("varchar(100)")
                         .HasColumnName("Name");
 
-                    b.Property<short>("Occupation")
-                        .HasColumnType("smallint")
-                        .HasColumnName("Occupation");
+                    b.Property<long>("OccupationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ProfessionalRegistration")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("ProfessionalRegistration");
 
                     b.Property<string>("RG")
                         .IsRequired()
@@ -133,7 +135,24 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
 
                     b.HasIndex("AddressId");
 
+                    b.HasIndex("OccupationId");
+
                     b.ToTable("Employees", "dbo");
+                });
+
+            modelBuilder.Entity("EmergencyManagementSystem.Common.Entities.Entities.Occupation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Profession")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Occupation");
                 });
 
             modelBuilder.Entity("EmergencyManagementSystem.Common.Entities.Entities.User", b =>
@@ -173,7 +192,15 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EmergencyManagementSystem.Common.Entities.Entities.Occupation", "Occupation")
+                        .WithMany()
+                        .HasForeignKey("OccupationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Address");
+
+                    b.Navigation("Occupation");
                 });
 
             modelBuilder.Entity("EmergencyManagementSystem.Common.Entities.Entities.User", b =>

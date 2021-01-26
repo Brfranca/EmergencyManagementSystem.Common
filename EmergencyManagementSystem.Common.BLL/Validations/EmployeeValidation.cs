@@ -50,6 +50,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("A data de nascimento deve ser informada.")
                 .Must(IsValidAge)
                 .WithMessage("O funcionários deve ter no mínimo 16 anos.");
+            //talvez validar se é uma data
 
             RuleFor(e => e.RG)
                 .NotNull()
@@ -70,8 +71,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             RuleFor(e => e.Occupation)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("O cargo deve ser informado.");
-            //Mudar a ocupação para um tabela do banco de dados e validar OcupacaoID
+                .WithMessage("Favor inserir a profissão do funcionário.");
 
             RuleFor(e => e.Email)
                 .NotNull()
@@ -80,9 +80,13 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .Must(IsValidEmail)
                 .WithMessage("E-mail inválido.");
 
-            RuleFor(e => e.CRM);
-            // Validar CRM a partir do cargo, apenas médicos tem CRM
-            // Enfermeiros tbm tem cadastro regional, verificar!
+            RuleFor(e => e.ProfessionalRegistration)
+                .MaximumLength(50)
+                .WithMessage("O registro profissional deve conter o máximo de 20 digitos.");
+
+            RuleFor(e => e.Company)
+                .NotNull()
+                .WithMessage("Favor informar a coorporação.");
         }
 
         private bool ContainsFullName(string fullName)

@@ -17,9 +17,11 @@ namespace EmergencyManagementSystem.Common.Entities.Entities
         public string CPF { get; set; }
         public string RG { get; set; }
         public DateTime BirthDate { get; set; }
-        public Occupation Occupation { get; set; }
-        public string CRM { get; set; }
+        public Company Company { get; set; }
+        public string ProfessionalRegistration { get; set; }
         public virtual Address Address { get; set; }
         public long AddressId { get; set; }
+        public virtual Occupation Occupation { get; set; }
+        public long OccupationId { get; set; }
     }
 }

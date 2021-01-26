@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EmergencyManagementSystem.Common.DAL.Migrations
 {
-    public partial class firstMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,6 +32,19 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Occupation",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Profession = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Occupation", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Employees",
                 schema: "dbo",
                 columns: table => new
@@ -44,9 +57,10 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
                     CPF = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: false),
                     RG = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Occupation = table.Column<short>(type: "smallint", nullable: false),
-                    CRM = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
-                    AddressId = table.Column<long>(type: "bigint", nullable: false)
+                    Company = table.Column<short>(type: "smallint", nullable: false),
+                    ProfessionalRegistration = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    AddressId = table.Column<long>(type: "bigint", nullable: false),
+                    OccupationId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,6 +70,12 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
                         column: x => x.AddressId,
                         principalSchema: "dbo",
                         principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Employees_Occupation_OccupationId",
+                        column: x => x.OccupationId,
+                        principalTable: "Occupation",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -90,6 +110,12 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Employees_OccupationId",
+                schema: "dbo",
+                table: "Employees",
+                column: "OccupationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_EmployeeId",
                 schema: "dbo",
                 table: "Users",
@@ -109,6 +135,9 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
             migrationBuilder.DropTable(
                 name: "Addresses",
                 schema: "dbo");
+
+            migrationBuilder.DropTable(
+                name: "Occupation");
         }
     }
 }
