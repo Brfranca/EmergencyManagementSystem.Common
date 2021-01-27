@@ -2,7 +2,6 @@ using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.BLL;
 using EmergencyManagementSystem.Common.BLL.Validations;
 using EmergencyManagementSystem.Common.Common.Interfaces;
-using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.DAL;
 using EmergencyManagementSystem.Common.DAL.DAL;
@@ -53,8 +52,6 @@ namespace EmergencyManagementSystem.Common.API
             services.AddScoped<IOccupationBLL, OccupationBLL>();
             services.AddScoped<IOccupationDAL, OccupationDAL>();
             services.AddScoped<OccupationValidation>();
-            services.AddScoped(typeof(IBaseDAL<>), typeof(BaseDAL<>));
-            services.AddScoped(typeof(IBaseBLL<>), typeof(BaseBLL<>));
 
 
             IMapper mapper = new MapperConfiguration(cfg =>
