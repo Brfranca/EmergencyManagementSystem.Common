@@ -1,11 +1,6 @@
 ﻿using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.API.Controllers
 {
@@ -32,9 +27,9 @@ namespace EmergencyManagementSystem.Common.API.Controllers
         }
 
         [HttpGet("Find")]
-        public Result Find(object id)
+        public Result Find(IFilter filter)
         {
-            return _baseBLL.Find(id);
+            return _baseBLL.Find(filter);
         }
 
         [HttpPost("Update")]

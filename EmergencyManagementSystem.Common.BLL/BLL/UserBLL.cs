@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.Validations;
+using EmergencyManagementSystem.Common.Common.Filters;
 using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
-using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
@@ -26,19 +23,37 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
 
         public override Result Delete(UserModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                User user = _mapper.Map<User>(model);
+                _userDAL.Delete(user);
+                return _userDAL.Save();
+            }
+            catch (Exception error)
+            {
+                return Result.BuildError("Erro ao deletar o registro do usuário.", error);
+            }
         }
 
-        public override Result<UserModel> Find(params object[] Id)
+        public override Result<UserModel> Find(IFilter filter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                User user = _userDAL.Find((UserFilter)filter);
+                UserModel userModel = _mapper.Map<UserModel>(user);
+                return Result<UserModel>.BuildSucess(userModel);
+            }
+            catch (Exception error)
+            {
+                return Result<UserModel>.BuildError("Erro ao localizar o usuário.", error);
+            }
         }
 
         public override Result Register(UserModel userModel)
         {
             try
             {
-                var user = _mapper.Map<User>(userModel);
+                User user = _mapper.Map<User>(userModel);
 
                 var result = _userValidation.Validate(user);
                 if (!result.Success)
@@ -49,13 +64,22 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             }
             catch (Exception error)
             {
-                return Result.BuildError("Erro no momento de registar o usuário.", error);
+                return Result.BuildError("Erro no momento de registrar o usuário.", error);
             }
         }
 
-        public override Result Update(UserModel model)
+        public override Result Update(UserModel userModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                User user = _mapper.Map<User>(userModel);
+                _userDAL.Update(user);
+                return _userDAL.Save();
+            }
+            catch (Exception error)
+            {
+                return Result.BuildError("Erro ao alterar o registro do usuário.", error);
+            }
         }
     }
 }

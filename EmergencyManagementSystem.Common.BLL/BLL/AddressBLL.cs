@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.Validations;
+using EmergencyManagementSystem.Common.Common.Filters;
 using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
-using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
@@ -27,19 +24,37 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
 
         public override Result Delete(AddressModel model)
         {
-            return Result.BuildSucess();
+            try
+            {
+                Address address = _mapper.Map<Address>(model);
+                _addressDAL.Delete(address);
+                return _addressDAL.Save();
+            }
+            catch (Exception error)
+            {
+                return Result.BuildError("Erro ao deletar o registro do endereço.", error);
+            }
         }
 
-        public override Result<AddressModel> Find(params object[] Id)
+        public override Result<AddressModel> Find(IFilter filter)
         {
-            return Result<AddressModel>.BuildSucess(null);
+            try
+            {
+                Address address = _addressDAL.Find((AddressFilter)filter);
+                AddressModel addressModel = _mapper.Map<AddressModel>(address);
+                return Result<AddressModel>.BuildSucess(addressModel);
+            }
+            catch (Exception error)
+            {
+                return Result<AddressModel>.BuildError("Erro ao localizar o endereço.", error);
+            }
         }
 
         public override Result Register(AddressModel addressModel)
         {
             try
             {
-                var address = _mapper.Map<Address>(addressModel);
+                Address address = _mapper.Map<Address>(addressModel);
 
                 var result = _addressValidation.Validate(address);
                 if (!result.Success)
@@ -56,7 +71,16 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
 
         public override Result Update(AddressModel model)
         {
-            return Result.BuildSucess();
+            try
+            {
+                Address address = _mapper.Map<Address>(model);
+                _addressDAL.Update(address);
+                return _addressDAL.Save();
+            }
+            catch (Exception error)
+            {
+                return Result.BuildError("Erro ao alterar o registro do endereço.", error);
+            }
         }
     }
 }

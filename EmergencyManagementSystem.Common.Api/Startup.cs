@@ -1,8 +1,8 @@
-using System.Threading.Tasks;
 using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.BLL;
 using EmergencyManagementSystem.Common.BLL.Validations;
 using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.DAL;
 using EmergencyManagementSystem.Common.DAL.DAL;
@@ -13,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace EmergencyManagementSystem.Common.API
@@ -51,7 +50,11 @@ namespace EmergencyManagementSystem.Common.API
             services.AddScoped<IEmployeeBLL, EmployeeBLL>();
             services.AddScoped<IEmployeeDAL, EmployeeDAL>();
             services.AddScoped<EmployeeValidation>();
+            services.AddScoped<IOccupationBLL, OccupationBLL>();
+            services.AddScoped<IOccupationDAL, OccupationDAL>();
+            services.AddScoped<OccupationValidation>();
             services.AddScoped(typeof(IBaseDAL<>), typeof(BaseDAL<>));
+            services.AddScoped(typeof(IBaseBLL<>), typeof(BaseBLL<>));
 
 
             IMapper mapper = new MapperConfiguration(cfg =>

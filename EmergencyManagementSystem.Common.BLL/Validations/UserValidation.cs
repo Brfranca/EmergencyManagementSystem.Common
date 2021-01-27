@@ -1,13 +1,6 @@
 ﻿using EmergencyManagementSystem.Common.Common.Interfaces;
-using EmergencyManagementSystem.Common.Common.Models;
-using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.BLL.Validations
 {
@@ -39,8 +32,8 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Senha deve ser informada")
-                .Length(8, 30)
-                .WithMessage("Senha deve conter entre 8 a 30 caracteres");
+                .Length(8, 100)
+                .WithMessage("Senha deve conter entre 8 a 100 caracteres");
         }
 
         private bool LoginIsValid(string arg)

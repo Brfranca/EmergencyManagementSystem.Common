@@ -1,13 +1,9 @@
 ﻿using EmergencyManagementSystem.Common.Common.Interfaces;
-using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.BLL.Validations
 {

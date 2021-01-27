@@ -1,13 +1,10 @@
-﻿using EmergencyManagementSystem.Common.Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EmergencyManagementSystem.Common.Common.Filters;
+using EmergencyManagementSystem.Common.Entities.Entities;
 
 namespace EmergencyManagementSystem.Common.Common.Interfaces
 {
     public interface IOccupationDAL : IBaseDAL<Occupation>
     {
+        Occupation Find(OccupationFilter filter);
     }
 }

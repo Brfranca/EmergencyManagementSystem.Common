@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
+using EmergencyManagementSystem.Common.Common.Models;
 
 namespace EmergencyManagementSystem.Common.Common.Interfaces
 {
-    public interface IEmployeeBLL
+    public interface IEmployeeBLL : IBaseBLL<EmployeeModel>
     {
     }
 }

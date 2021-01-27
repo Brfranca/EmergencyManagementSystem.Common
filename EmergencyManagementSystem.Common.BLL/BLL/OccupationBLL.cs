@@ -1,18 +1,15 @@
 ﻿using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.Validations;
+using EmergencyManagementSystem.Common.Common.Filters;
 using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
-using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
-    public class OccupationBLL : BaseBLL<OccupationModel>,  IOccupationBLL
+    public class OccupationBLL : BaseBLL<OccupationModel>, IOccupationBLL
     {
         private readonly IMapper _mapper;
         private readonly IOccupationDAL _occupationDAL;
@@ -27,19 +24,37 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
 
         public override Result Delete(OccupationModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Occupation occupation = _mapper.Map<Occupation>(model);
+                _occupationDAL.Delete(occupation);
+                return _occupationDAL.Save();
+            }
+            catch (Exception error)
+            {
+                return Result.BuildError("Erro ao deletar o cargo profissional.", error);
+            }
         }
 
-        public override Result<OccupationModel> Find(params object[] Id)
+        public override Result<OccupationModel> Find(IFilter filter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Occupation occupation = _occupationDAL.Find((OccupationFilter)filter);
+                OccupationModel occupationModel = _mapper.Map<OccupationModel>(occupation);
+                return Result<OccupationModel>.BuildSucess(occupationModel);
+            }
+            catch (Exception error)
+            {
+                return Result<OccupationModel>.BuildError("Erro ao localizar o cargo profissional.", error);
+            }
         }
 
         public override Result Register(OccupationModel occupationModel)
         {
             try
             {
-                var occupation = _mapper.Map<Occupation>(occupationModel);
+                Occupation occupation = _mapper.Map<Occupation>(occupationModel);
 
                 var result = _occupationValidation.Validate(occupation);
                 if (!result.Success)
@@ -56,7 +71,16 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
 
         public override Result Update(OccupationModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Occupation occupation = _mapper.Map<Occupation>(model);
+                _occupationDAL.Update(occupation);
+                return _occupationDAL.Save();
+            }
+            catch (Exception error)
+            {
+                return Result.BuildError("Erro ao alterar o registro do cargo profissional.", error);
+            }
         }
     }
 }

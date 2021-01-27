@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.Validations;
+using EmergencyManagementSystem.Common.Common.Filters;
 using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
-using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
@@ -26,12 +23,30 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
 
         public override Result Delete(EmployeeModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Employee employee = _mapper.Map<Employee>(model);
+                _employeeDAL.Delete(employee);
+                return _employeeDAL.Save();
+            }
+            catch (Exception error)
+            {
+                return Result.BuildError("Erro ao deletar o registro do funcionário.", error);
+            }
         }
 
-        public override Result<EmployeeModel> Find(params object[] Id)
+        public override Result<EmployeeModel> Find(IFilter filter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Employee employee = _employeeDAL.Find((EmployeeFilter)filter);
+                EmployeeModel employeeModel = _mapper.Map<EmployeeModel>(employee);
+                return Result<EmployeeModel>.BuildSucess(employeeModel);
+            }
+            catch (Exception error)
+            {
+                return Result<EmployeeModel>.BuildError("Erro ao localizar o funcionário.", error);
+            }
         }
 
         public override Result Register(EmployeeModel employeeModel)
@@ -55,7 +70,16 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
 
         public override Result Update(EmployeeModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Employee employee = _mapper.Map<Employee>(model);
+                 _employeeDAL.Update(employee);
+                return _employeeDAL.Save();
+            }
+            catch (Exception error)
+            {
+                return Result.BuildError("Erro ao alterar o registro do funcionário.", error);
+            }
         }
     }
 }

@@ -1,12 +1,7 @@
-﻿using AutoMapper;
+﻿using EmergencyManagementSystem.Common.Common.Filters;
 using EmergencyManagementSystem.Common.Common.Interfaces;
-using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.Entities.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.DAL.DAL
 {
@@ -14,6 +9,11 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
     {
         public UserDAL(Context context) : base(context)
         {
+        }
+
+        public User Find(UserFilter filter)
+        {
+            return Set.FirstOrDefault(x => x.Login == filter.Login);
         }
     }
 }

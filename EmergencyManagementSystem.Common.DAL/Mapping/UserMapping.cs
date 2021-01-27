@@ -1,11 +1,6 @@
 ﻿using EmergencyManagementSystem.Common.Entities.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.DAL.Mapping
 {
@@ -26,7 +21,7 @@ namespace EmergencyManagementSystem.Common.DAL.Mapping
             builder.Property(d => d.Password)
                 .HasColumnName("Password")
                 .HasColumnType("varchar")
-                .HasMaxLength(20)
+                .HasMaxLength(100)
                 .IsRequired();
 
             builder.HasOne(d => d.Employee)

@@ -1,10 +1,7 @@
-﻿using EmergencyManagementSystem.Common.Common.Interfaces;
+﻿using EmergencyManagementSystem.Common.Common.Filters;
+using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Entities.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.DAL.DAL
 {
@@ -12,6 +9,11 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
     {
         public EmployeeDAL(Context context) : base(context)
         {
+        }
+
+        public Employee Find(EmployeeFilter filter)
+        {
+            return Set.FirstOrDefault(d => d.CPF == filter.CPF);
         }
 
         public bool ExistEmployee(long employeeId)
