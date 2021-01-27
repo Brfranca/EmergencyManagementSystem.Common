@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.Validations;
+using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
@@ -11,20 +12,30 @@ using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
-    public class AddressBLL
+    public class AddressBLL : BaseBLL<AddressModel>, IAddressBLL
     {
         private readonly IMapper _mapper;
-        private readonly AddressDAL _addressDAL;
+        private readonly IAddressDAL _addressDAL;
         private readonly AddressValidation _addressValidation;
 
-        public AddressBLL(AddressDAL addressDAL, AddressValidation addressValidation, IMapper mapper)
+        public AddressBLL(IAddressDAL addressDAL, AddressValidation addressValidation, IMapper mapper)
         {
             _addressDAL = addressDAL;
             _addressValidation = addressValidation;
             _mapper = mapper;
         }
 
-        public Result Register(AddressModel addressModel)
+        public override Result Delete(AddressModel model)
+        {
+            return Result.BuildSucess();
+        }
+
+        public override Result<AddressModel> Find(params object[] Id)
+        {
+            return Result<AddressModel>.BuildSucess(null);
+        }
+
+        public override Result Register(AddressModel addressModel)
         {
             try
             {
@@ -41,6 +52,11 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 return Result.BuildError("Erro no momento de registar o endereço.", error);
             }
+        }
+
+        public override Result Update(AddressModel model)
+        {
+            return Result.BuildSucess();
         }
     }
 }

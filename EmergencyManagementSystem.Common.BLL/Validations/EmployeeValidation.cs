@@ -1,4 +1,5 @@
-﻿using EmergencyManagementSystem.Common.DAL.DAL;
+﻿using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using FluentValidation;
 using System;
@@ -12,9 +13,9 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
 {
     public class EmployeeValidation : BaseValidation<Employee>
     {
-        private readonly EmployeeDAL _employeeDAL;
+        private readonly IEmployeeDAL _employeeDAL;
 
-        public EmployeeValidation(EmployeeDAL employeeDAL)
+        public EmployeeValidation(IEmployeeDAL employeeDAL)
         {
             _employeeDAL = employeeDAL;
 

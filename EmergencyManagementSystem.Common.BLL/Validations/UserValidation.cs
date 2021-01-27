@@ -1,4 +1,5 @@
-﻿using EmergencyManagementSystem.Common.Common.Models;
+﻿using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using FluentValidation;
@@ -12,9 +13,9 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
 {
     public class UserValidation : BaseValidation<User>
     {
-        private readonly EmployeeDAL _employeeDAL;
+        private readonly IEmployeeDAL _employeeDAL;
 
-        public UserValidation(EmployeeDAL employeeDAL)
+        public UserValidation(IEmployeeDAL employeeDAL)
         {
             _employeeDAL = employeeDAL;
 

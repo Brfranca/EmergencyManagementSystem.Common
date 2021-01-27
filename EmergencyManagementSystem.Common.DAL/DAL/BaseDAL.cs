@@ -1,4 +1,5 @@
-﻿using EmergencyManagementSystem.Common.Common.Models;
+﻿using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.DAL.DAL
 {
-    public class BaseDAL<T> where T : class
+    public class BaseDAL<T> : IBaseDAL<T> where T : class
     {
         public DbSet<T> Set { get; set; }
         public Context Context { get; set; }

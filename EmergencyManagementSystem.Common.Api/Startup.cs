@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.BLL;
 using EmergencyManagementSystem.Common.BLL.Validations;
+using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.DAL;
 using EmergencyManagementSystem.Common.DAL.DAL;
@@ -41,20 +42,25 @@ namespace EmergencyManagementSystem.Common.API
                 Configuration.GetConnectionString("Default"));
             }, ServiceLifetime.Scoped);
 
-            services.AddScoped<UserBLL>();
-            services.AddScoped<UserDAL>();
+            services.AddScoped<IUserBLL, UserBLL>();
+            services.AddScoped<IUserDAL, UserDAL>();
             services.AddScoped<UserValidation>();
-            services.AddScoped<AddressBLL>();
-            services.AddScoped<AddressDAL>();
+            services.AddScoped<IAddressBLL, AddressBLL>();
+            services.AddScoped<IAddressDAL, AddressDAL>();
             services.AddScoped<AddressValidation>();
-            services.AddScoped<EmployeeBLL>();
-            services.AddScoped<EmployeeDAL>();
+            services.AddScoped<IEmployeeBLL, EmployeeBLL>();
+            services.AddScoped<IEmployeeDAL, EmployeeDAL>();
             services.AddScoped<EmployeeValidation>();
+            services.AddScoped(typeof(IBaseDAL<>), typeof(BaseDAL<>));
 
 
             IMapper mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<UserModel, User>();
+                cfg.CreateMap<OccupationModel, Occupation>();
+                cfg.CreateMap<AddressModel, Address>();
+                cfg.CreateMap<EmployeeModel, Employee>();
+
             }).CreateMapper();
             services.AddSingleton(mapper);
         }

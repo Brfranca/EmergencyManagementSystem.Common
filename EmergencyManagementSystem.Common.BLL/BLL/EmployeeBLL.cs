@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.Validations;
+using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
@@ -11,19 +12,29 @@ using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
-    public class EmployeeBLL
+    public class EmployeeBLL : BaseBLL<EmployeeModel>, IEmployeeBLL
     {
         private readonly IMapper _mapper;
-        private readonly EmployeeDAL _employeeDAL;
+        private readonly IEmployeeDAL _employeeDAL;
         private readonly EmployeeValidation _employeeValidation;
-        public EmployeeBLL(EmployeeDAL employeeDAL, EmployeeValidation employeeValidation, IMapper mapper)
+        public EmployeeBLL(IEmployeeDAL employeeDAL, EmployeeValidation employeeValidation, IMapper mapper)
         {
             _employeeDAL = employeeDAL;
             _employeeValidation = employeeValidation;
             _mapper = mapper;
         }
 
-        public Result Register(EmployeeModel employeeModel)
+        public override Result Delete(EmployeeModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Result<EmployeeModel> Find(params object[] Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Result Register(EmployeeModel employeeModel)
         {
             try
             {
@@ -40,6 +51,11 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 return Result.BuildError("Erro no momento de registar o funcionário.", error);
             }
+        }
+
+        public override Result Update(EmployeeModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

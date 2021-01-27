@@ -1,4 +1,6 @@
 ﻿ using EmergencyManagementSystem.Common.BLL.BLL;
+using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,18 +13,10 @@ namespace EmergencyManagementSystem.Common.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController<UserModel>
     {
-        private readonly UserBLL _userBLL;
-        public UserController(UserBLL userBLL)
+        public UserController(IUserBLL userBLL) : base(userBLL)
         {
-            _userBLL = userBLL;
-        }
-
-        [HttpPost("Register")]
-        public Result Register(UserModel userModel)
-        {
-            return _userBLL.Register(userModel);
         }
 
 

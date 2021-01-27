@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.Validations;
+using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.DAL.DAL;
 using EmergencyManagementSystem.Common.Entities.Entities;
@@ -11,20 +12,30 @@ using System.Threading.Tasks;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
-    public class OccupationBLL
+    public class OccupationBLL : BaseBLL<OccupationModel>,  IOccupationBLL
     {
         private readonly IMapper _mapper;
-        private readonly OccupationDAL _occupationDAL;
+        private readonly IOccupationDAL _occupationDAL;
         private readonly OccupationValidation _occupationValidation;
 
-        public OccupationBLL(IMapper mapper, OccupationDAL occupationDAL, OccupationValidation occupationValidation)
+        public OccupationBLL(IMapper mapper, IOccupationDAL occupationDAL, OccupationValidation occupationValidation)
         {
             _mapper = mapper;
             _occupationDAL = occupationDAL;
             _occupationValidation = occupationValidation;
         }
 
-        public Result Register(OccupationModel occupationModel)
+        public override Result Delete(OccupationModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Result<OccupationModel> Find(params object[] Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Result Register(OccupationModel occupationModel)
         {
             try
             {
@@ -41,6 +52,11 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 return Result.BuildError("Erro no momento de registar o cargo profissional.", error);
             }
+        }
+
+        public override Result Update(OccupationModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }
