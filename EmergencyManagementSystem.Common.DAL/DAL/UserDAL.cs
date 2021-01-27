@@ -14,6 +14,5 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
         public UserDAL(Context context) : base(context)
         {
         }
-
     }
 }

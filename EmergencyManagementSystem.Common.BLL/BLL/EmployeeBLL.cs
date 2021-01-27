@@ -38,7 +38,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             }
             catch (Exception error)
             {
-                return Result.BuildError("Erro no momento de registar o usuário.", error);
+                return Result.BuildError("Erro no momento de registar o funcionário.", error);
             }
         }
     }

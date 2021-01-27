@@ -30,7 +30,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .NotNull()
                 .WithMessage("Usuário deve ser informado")
                 .Length(15, 40)
-                .WithMessage("Usuário deve conter entre 15 a 40 caracteres")
+                .WithMessage("Usuário deve conter entre 15 a 100 caracteres")
                 .Must(LoginIsValid)
                 .WithMessage("Usuário inválido");
 

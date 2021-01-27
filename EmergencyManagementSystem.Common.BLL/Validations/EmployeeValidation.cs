@@ -25,20 +25,20 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             RuleFor(e => e.Name)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("O nome deve ser informado.")
+                .WithMessage("Favor informar o nome completo.")
                 .Length(3, 100)
                 .WithMessage("O nome deve ter entre 3 e 100 letras.")
                 .Must(ContainsFullName)
-                .WithMessage("Insira o nome completo.")
+                .WithMessage("Favor insirir o nome completo.")
                 .Must(IsValidName)
-                .WithMessage("Nome não deve conter números e caracteres especiais.");
+                .WithMessage("O nome não deve conter números ou caracteres especiais.");
 
             RuleFor(e => e.CPF)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("O CPF deve ser informado.")
+                .WithMessage("Favor informar o CPF.")
                 .Length(11)
-                .WithMessage("O CPF deve conter 11 caracteres.")
+                .WithMessage("O CPF deve conter 11 números.")
                 .Must(IsValidCPF)
                 .WithMessage("CPF inválido.")
                 .Must(ExistCPF)
@@ -47,15 +47,16 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             RuleFor(e => e.BirthDate)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("A data de nascimento deve ser informada.")
+                .WithMessage("Favor informar a data de nascimento.")
                 .Must(IsValidAge)
-                .WithMessage("O funcionários deve ter no mínimo 16 anos.");
-            //talvez validar se é uma data
+                .WithMessage("O funcionário deve ter no mínimo 16 anos.");
 
             RuleFor(e => e.RG)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("O RG deve ser informado.")
+                .WithMessage("Favor informar o RG.")
+                .MaximumLength(10)
+                .WithMessage("O RG deve ter no máximo 10 números.")
                 .Must(IsValidRG)
                 .WithMessage("O RG deve conter apenas números.")
                 .Must(ExistRG)
@@ -64,7 +65,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             RuleFor(e => e.Telephone)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("O Telefone deve ser informado.")
+                .WithMessage("Favor informar o telefone.")
                 .Must(IsValidPhone)
                 .WithMessage("Telefone inválido");
 
@@ -76,17 +77,21 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             RuleFor(e => e.Email)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("O e-mail deve ser informado.")
+                .WithMessage("Favor informar o e-mail.")
+                .MaximumLength(100)
+                .WithMessage("O e-mail deve conter no máximo 100 caracteres.")
                 .Must(IsValidEmail)
                 .WithMessage("E-mail inválido.");
 
             RuleFor(e => e.ProfessionalRegistration)
                 .MaximumLength(50)
-                .WithMessage("O registro profissional deve conter o máximo de 20 digitos.");
+                .WithMessage("O registro profissional deve conter no máximo 50 letras.");
 
             RuleFor(e => e.Company)
                 .NotNull()
-                .WithMessage("Favor informar a coorporação.");
+                .WithMessage("Favor informar a corporação.")
+                .IsInEnum()
+                .WithMessage("Corporação inválida.");
         }
 
         private bool ContainsFullName(string fullName)

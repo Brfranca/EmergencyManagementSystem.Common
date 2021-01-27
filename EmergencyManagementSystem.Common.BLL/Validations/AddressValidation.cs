@@ -1,5 +1,4 @@
-﻿using EmergencyManagementSystem.Common.DAL.DAL;
-using EmergencyManagementSystem.Common.Entities.Entities;
+﻿using EmergencyManagementSystem.Common.Entities.Entities;
 using FluentValidation;
 using System.Text.RegularExpressions;
 
@@ -7,33 +6,26 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
 {
     public class AddressValidation : BaseValidation<Address>
     {
-        private readonly AddressDAL _addressDAL;
-
-        public AddressValidation(AddressDAL addressDAL)
+        public AddressValidation()
         {
-            _addressDAL = addressDAL;
-
             RuleFor(e => e.CEP)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("Favor inserir o CEP")
                 .Length(8)
-                .WithMessage("O CEP deve conter 8 caracteres.");
+                .WithMessage("O CEP deve conter 8 números.");
 
             RuleFor(e => e.City)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("Cidade deve ser informada.")
-                .Length(4, 60)
+                .WithMessage("Favor informar a cidade.")
+                .Length(3, 100)
                 .WithMessage("A cidade deve ter entre 3 e 100 letras.")
                 .Must(IsValidName)
-                .WithMessage("Nome da cidade não deve conter números e caracteres especiais.");
+                .WithMessage("O nome da cidade não deve conter números e caracteres especiais.");
 
             RuleFor(e => e.District)
                 .Length(3, 60)
                 .WithMessage("O bairro deve ter entre 3 e 60 letras.")
                 .Must(IsValidName)
-                .WithMessage("Nome do bairro não deve conter números e caracteres especiais.");
+                .WithMessage("O nome do bairro não deve conter números e caracteres especiais.");
 
             RuleFor(e => e.Complement)
                 .Length(3, 60)
@@ -50,17 +42,16 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             RuleFor(e => e.State)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("O estado deve ser informado.")
+                .WithMessage("Favor informar o nome do estado.")
                 .Length(2)
                 .WithMessage("O estado deve conter 2 letras.");
 
             RuleFor(e => e.Street)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage("A rua deve ser informada.")
+                .WithMessage("Favor informar o nome da rua.")
                 .Length(3, 60)
                 .WithMessage("A rua deve conter entre 3 e 60 letras.");
-
         }
 
         private bool IsValidName(string Name)
