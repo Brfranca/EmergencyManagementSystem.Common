@@ -7,6 +7,7 @@ namespace EmergencyManagementSystem.Common.Entities.Entities
     public class Employee : IEntity<long>
     {
         public long Id { get; set; }
+        public Guid Guid { get; set; }
         public string Name { get; set; }
         public string Telephone { get; set; }
         public string Email { get; set; }

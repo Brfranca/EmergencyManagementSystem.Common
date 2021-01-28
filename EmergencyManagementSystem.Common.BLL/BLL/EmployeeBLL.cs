@@ -54,6 +54,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             try
             {
                 var employee = _mapper.Map<Employee>(employeeModel);
+                employee.Guid = Guid.NewGuid();
 
                 var result = _employeeValidation.Validate(employee);
                 if (!result.Success)

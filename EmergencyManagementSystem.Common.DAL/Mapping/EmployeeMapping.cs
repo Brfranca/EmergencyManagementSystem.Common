@@ -12,6 +12,11 @@ namespace EmergencyManagementSystem.Common.DAL.Mapping
 
             builder.HasKey(d => d.Id);
 
+            builder.Property(d => d.Guid)
+                .HasColumnName("Guid")
+                .HasColumnType("uniqueidentifier")
+                .IsRequired();
+
             builder.Property(d => d.BirthDate)
                 .HasColumnName("BirthDate")
                 .HasColumnType("datetime")
