@@ -2,6 +2,8 @@ using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.BLL;
 using EmergencyManagementSystem.Common.BLL.Validations;
 using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
+using EmergencyManagementSystem.Common.Common.Interfaces.DAL;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.DAL;
 using EmergencyManagementSystem.Common.DAL.DAL;
@@ -52,6 +54,9 @@ namespace EmergencyManagementSystem.Common.API
             services.AddScoped<IOccupationBLL, OccupationBLL>();
             services.AddScoped<IOccupationDAL, OccupationDAL>();
             services.AddScoped<OccupationValidation>();
+            services.AddScoped<IRequesterBLL, RequesterBLL>();
+            services.AddScoped<IRequesterDAL, RequesterDAL>();
+            services.AddScoped<RequesterValidation>();
 
 
             IMapper mapper = new MapperConfiguration(cfg =>
@@ -60,6 +65,8 @@ namespace EmergencyManagementSystem.Common.API
                 cfg.CreateMap<OccupationModel, Occupation>();
                 cfg.CreateMap<AddressModel, Address>();
                 cfg.CreateMap<EmployeeModel, Employee>();
+                cfg.CreateMap<RequesterModel, Requester>();
+
 
             }).CreateMapper();
             services.AddSingleton(mapper);

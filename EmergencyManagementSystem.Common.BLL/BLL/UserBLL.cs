@@ -55,7 +55,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 User user = _mapper.Map<User>(userModel);
 
-                var result = _userValidation.Validate(user);
+                Result result = _userValidation.Validate(user);
                 if (!result.Success)
                     return result;
 

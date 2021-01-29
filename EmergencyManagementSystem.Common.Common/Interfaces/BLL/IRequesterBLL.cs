@@ -2,7 +2,7 @@
 
 namespace EmergencyManagementSystem.Common.Common.Interfaces.BLL
 {
-    public interface IOccupationBLL : IBaseBLL<OccupationModel>
+    public interface IRequesterBLL : IBaseBLL<RequesterModel>
     {
     }
 }
