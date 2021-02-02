@@ -15,7 +15,7 @@ namespace EmergencyManagementSystem.Common.DAL.Mapping
             builder.Property(d => d.Login)
                 .HasColumnName("Login")
                 .HasColumnType("varchar")
-                .HasMaxLength(60)
+                .HasMaxLength(100)
                 .IsRequired();
 
             builder.Property(d => d.Password)
