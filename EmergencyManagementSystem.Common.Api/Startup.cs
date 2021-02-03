@@ -62,11 +62,15 @@ namespace EmergencyManagementSystem.Common.API
             IMapper mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<UserModel, User>();
+                cfg.CreateMap<User, UserModel>();
                 cfg.CreateMap<OccupationModel, Occupation>();
+                cfg.CreateMap<Occupation, OccupationModel>();
                 cfg.CreateMap<AddressModel, Address>();
+                cfg.CreateMap<Address, AddressModel>();
                 cfg.CreateMap<EmployeeModel, Employee>();
+                cfg.CreateMap<Employee, EmployeeModel>();
                 cfg.CreateMap<RequesterModel, Requester>();
-
+                cfg.CreateMap<Requester, RequesterModel>();
 
             }).CreateMapper();
             services.AddSingleton(mapper);

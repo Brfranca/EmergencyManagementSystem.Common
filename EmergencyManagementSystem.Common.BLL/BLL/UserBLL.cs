@@ -41,7 +41,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 User user = _userDAL.Find((UserFilter)filter);
                 UserModel userModel = _mapper.Map<UserModel>(user);
-                return Result<UserModel>.BuildSucess(userModel);
+                return Result<UserModel>.BuildSuccess(userModel);
             }
             catch (Exception error)
             {

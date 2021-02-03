@@ -41,7 +41,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 Employee employee = _employeeDAL.Find((EmployeeFilter)filter);
                 EmployeeModel employeeModel = _mapper.Map<EmployeeModel>(employee);
-                return Result<EmployeeModel>.BuildSucess(employeeModel);
+                return Result<EmployeeModel>.BuildSuccess(employeeModel);
             }
             catch (Exception error)
             {

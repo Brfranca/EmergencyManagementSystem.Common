@@ -12,7 +12,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             if (!result.IsValid)
                 return Result<T>.BuildError(result.Errors.Select(d => d.ErrorMessage).ToList());
 
-            return Result<T>.BuildSucess(model);
+            return Result<T>.BuildSuccess(model);
         }
     }
 }

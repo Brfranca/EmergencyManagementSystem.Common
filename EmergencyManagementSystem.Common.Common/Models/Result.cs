@@ -38,7 +38,7 @@ namespace EmergencyManagementSystem.Common.Common.Models
                 }
             };
 
-        public static Result<T> BuildSucess(T model, string message = "")
+        public static Result<T> BuildSuccess(T model, string message = "")
             => new Result<T>
             {
                 Model = model,
@@ -78,7 +78,7 @@ namespace EmergencyManagementSystem.Common.Common.Models
                 }
             };
 
-        public static Result BuildSucess(string message = "")
+        public static Result BuildSuccess(string message = "")
             => new Result
             {
                 Success = true,

@@ -42,7 +42,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 Occupation occupation = _occupationDAL.Find((OccupationFilter)filter);
                 OccupationModel occupationModel = _mapper.Map<OccupationModel>(occupation);
-                return Result<OccupationModel>.BuildSucess(occupationModel);
+                return Result<OccupationModel>.BuildSuccess(occupationModel);
             }
             catch (Exception error)
             {

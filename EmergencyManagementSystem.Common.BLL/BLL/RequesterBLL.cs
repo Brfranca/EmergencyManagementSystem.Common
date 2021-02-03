@@ -41,7 +41,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 Requester requester = _requesterDAL.Find((RequesterFilter)filter);
                 RequesterModel requesterModel = _mapper.Map<RequesterModel>(requester);
-                return Result<RequesterModel>.BuildSucess(requesterModel);
+                return Result<RequesterModel>.BuildSuccess(requesterModel);
             }
             catch (Exception error)
             {
