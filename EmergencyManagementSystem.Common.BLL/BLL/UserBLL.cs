@@ -73,6 +73,11 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             try
             {
                 User user = _mapper.Map<User>(userModel);
+
+                Result result = _userValidation.Validate(user);
+                if (!result.Success)
+                    return result;
+
                 _userDAL.Update(user);
                 return _userDAL.Save();
             }

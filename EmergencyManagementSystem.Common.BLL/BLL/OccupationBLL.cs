@@ -74,6 +74,11 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             try
             {
                 Occupation occupation = _mapper.Map<Occupation>(model);
+
+                var result = _occupationValidation.Validate(occupation);
+                if (!result.Success)
+                    return result;
+
                 _occupationDAL.Update(occupation);
                 return _occupationDAL.Save();
             }

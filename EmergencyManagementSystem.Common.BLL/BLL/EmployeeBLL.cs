@@ -74,7 +74,12 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             try
             {
                 Employee employee = _mapper.Map<Employee>(model);
-                 _employeeDAL.Update(employee);
+
+                var result = _employeeValidation.Validate(employee);
+                if (!result.Success)
+                    return result;
+
+                _employeeDAL.Update(employee);
                 return _employeeDAL.Save();
             }
             catch (Exception error)
