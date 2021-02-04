@@ -16,10 +16,10 @@ namespace EmergencyManagementSystem.Common.Common.Models
         public DateTime BirthDate { get; set; }
         public Company Company { get; set; }
         public string ProfessionalRegistration { get; set; }
-        public virtual Address Address { get; set; }
+       // public  Address Address { get; set; }
         public long AddressId { get; set; }
-        public virtual Occupation Occupation { get; set; }
-        public long OccupationId { get; set; }
+      //  public  Occupation Occupation { get; set; }
+        public short OccupationId { get; set; }
 
     }
 }
