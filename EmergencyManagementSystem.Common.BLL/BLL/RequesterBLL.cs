@@ -73,6 +73,11 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             try
             {
                 Requester requester = _mapper.Map<Requester>(model);
+
+                Result result = _requesterValidation.Validate(requester);
+                if (!result.Success)
+                    return result;
+
                 _requesterDAL.Update(requester);
                 return _requesterDAL.Save();
             }
