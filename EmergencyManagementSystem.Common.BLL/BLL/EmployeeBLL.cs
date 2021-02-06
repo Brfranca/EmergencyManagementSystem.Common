@@ -14,11 +14,13 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         private readonly IMapper _mapper;
         private readonly IEmployeeDAL _employeeDAL;
         private readonly EmployeeValidation _employeeValidation;
-        public EmployeeBLL(IEmployeeDAL employeeDAL, EmployeeValidation employeeValidation, IMapper mapper)
+        private readonly IAddressBLL _addressBLL;
+        public EmployeeBLL(IEmployeeDAL employeeDAL, EmployeeValidation employeeValidation, IMapper mapper, IAddressBLL addressBLL)
         {
             _employeeDAL = employeeDAL;
             _employeeValidation = employeeValidation;
             _mapper = mapper;
+            _addressBLL = addressBLL;
         }
 
         public override Result Delete(EmployeeModel model)
@@ -61,6 +63,11 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
                     return result;
 
                 _employeeDAL.Insert(employee);
+
+                var resultAdress = _addressBLL.Register(employeeModel.AddressModel);
+                if (!result.Success)
+                    return resultAdress;
+
                 return _employeeDAL.Save();
             }
             catch (Exception error)

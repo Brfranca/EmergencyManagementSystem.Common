@@ -27,7 +27,7 @@ namespace EmergencyManagementSystem.Common.API.Controllers
         }
 
         [HttpGet("Find")]
-        public Result Find(IFilter filter)
+        public Result<T> Find(IFilter filter)
         {
             return _baseBLL.Find(filter);
         }

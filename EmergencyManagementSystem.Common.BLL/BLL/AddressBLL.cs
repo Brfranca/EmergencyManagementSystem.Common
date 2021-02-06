@@ -60,8 +60,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
                 if (!result.Success)
                     return result;
 
-                _addressDAL.Insert(address);
-                return _addressDAL.Save();
+                return _addressDAL.Insert(address);
             }
             catch (Exception error)
             {
