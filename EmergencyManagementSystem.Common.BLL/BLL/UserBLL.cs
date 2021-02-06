@@ -40,6 +40,9 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             try
             {
                 User user = _userDAL.Find((UserFilter)filter);
+                if (user == null)
+                    return Result<UserModel>.BuildError("Usuário não encontrado");
+
                 UserModel userModel = _mapper.Map<UserModel>(user);
                 return Result<UserModel>.BuildSuccess(userModel);
             }

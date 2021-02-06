@@ -28,12 +28,6 @@ namespace EmergencyManagementSystem.Common.API.Controllers
             return _baseBLL.Delete(model);
         }
 
-        [HttpGet("Find")]
-        public Result<TModel> Find(IFilter filter)
-        {
-            return _baseBLL.Find(filter);
-        }
-
         [HttpPost("Update")]
         public Result Update(TModel model)
         {

@@ -1,4 +1,5 @@
-﻿ using EmergencyManagementSystem.Common.BLL.BLL;
+﻿using EmergencyManagementSystem.Common.BLL.BLL;
+using EmergencyManagementSystem.Common.Common.Filters;
 using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
@@ -16,10 +17,16 @@ namespace EmergencyManagementSystem.Common.API.Controllers
     [ApiController]
     public class UserController : BaseController<UserModel, User>
     {
+        private readonly IUserBLL _userBLL;
         public UserController(IUserBLL userBLL) : base(userBLL)
         {
+            _userBLL = userBLL;
         }
 
-
+        [HttpPost("Find")]
+        public Result<UserModel> Find(UserFilter filter)
+        {
+            return _userBLL.Find(filter);
+        }
     }
 }
