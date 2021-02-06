@@ -9,7 +9,7 @@ using System;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
-    public class OccupationBLL : BaseBLL<OccupationModel>, IOccupationBLL
+    public class OccupationBLL : BaseBLL<OccupationModel, Occupation>, IOccupationBLL
     {
         private readonly IMapper _mapper;
         private readonly IOccupationDAL _occupationDAL;
@@ -50,7 +50,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             }
         }
 
-        public override Result Register(OccupationModel occupationModel)
+        public override Result<Occupation> Register(OccupationModel occupationModel)
         {
             try
             {
@@ -61,11 +61,15 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
                     return result;
 
                 _occupationDAL.Insert(occupation);
-                return _occupationDAL.Save();
+                var resultSave = _occupationDAL.Save();
+                if (!resultSave.Success)
+                    return Result<Occupation>.BuildError(resultSave.Messages);
+
+                return Result<Occupation>.BuildSuccess(occupation);
             }
             catch (Exception error)
             {
-                return Result.BuildError("Erro no momento de registar o cargo profissional.", error);
+                return Result<Occupation>.BuildError("Erro no momento de registar o cargo profissional.", error);
             }
         }
 

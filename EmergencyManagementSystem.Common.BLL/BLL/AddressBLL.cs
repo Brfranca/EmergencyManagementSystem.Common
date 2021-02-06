@@ -9,7 +9,7 @@ using System;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
-    public class AddressBLL : BaseBLL<AddressModel>, IAddressBLL
+    public class AddressBLL : BaseBLL<AddressModel, Address>, IAddressBLL
     {
         private readonly IMapper _mapper;
         private readonly IAddressDAL _addressDAL;
@@ -50,7 +50,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             }
         }
 
-        public override Result Register(AddressModel addressModel)
+        public override Result<Address> Register(AddressModel addressModel)
         {
             try
             {
@@ -60,11 +60,12 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
                 if (!result.Success)
                     return result;
 
-                return _addressDAL.Insert(address);
+                 _addressDAL.Insert(address);
+                return Result<Address>.BuildSuccess(address);
             }
             catch (Exception error)
             {
-                return Result.BuildError("Erro no momento de registar o endereço.", error);
+                return Result<Address>.BuildError("Erro no momento de registar o endereço.", error);
             }
         }
 

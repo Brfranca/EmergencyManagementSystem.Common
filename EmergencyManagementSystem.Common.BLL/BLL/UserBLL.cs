@@ -9,7 +9,7 @@ using System;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
-    public class UserBLL : BaseBLL<UserModel>, IUserBLL
+    public class UserBLL : BaseBLL<UserModel, User>, IUserBLL
     {
         private readonly IMapper _mapper;
         private readonly IUserDAL _userDAL;
@@ -49,22 +49,26 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             }
         }
 
-        public override Result Register(UserModel userModel)
+        public override Result<User> Register(UserModel userModel)
         {
             try
             {
                 User user = _mapper.Map<User>(userModel);
 
-                Result result = _userValidation.Validate(user);
+                var result = _userValidation.Validate(user);
                 if (!result.Success)
                     return result;
 
                 _userDAL.Insert(user);
-                return _userDAL.Save();
+                var resultSave = _userDAL.Save();
+                if (!resultSave.Success)
+                    return Result<User>.BuildError(resultSave.Messages);
+
+                return Result<User>.BuildSuccess(user);
             }
             catch (Exception error)
             {
-                return Result.BuildError("Erro no momento de registrar o usuário.", error);
+                return Result<User>.BuildError("Erro no momento de registrar o usuário.", error);
             }
         }
 

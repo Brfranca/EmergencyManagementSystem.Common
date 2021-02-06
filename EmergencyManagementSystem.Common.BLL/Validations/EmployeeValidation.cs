@@ -66,7 +66,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .Must(IsValidPhone)
                 .WithMessage("Telefone inválido");
 
-            RuleFor(e => e.Occupation)
+            RuleFor(e => e.OccupationId)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor inserir a profissão do funcionário.");
@@ -138,19 +138,19 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
 
         private bool ExistCPF(string cpf)
         {
-            return _employeeDAL.ExistCPF(cpf);
+            return !_employeeDAL.ExistCPF(cpf);
         }
 
         private bool ExistRG(string rg)
         {
-            return _employeeDAL.ExistRG(rg);
+            return !_employeeDAL.ExistRG(rg);
         }
 
         private bool IsValidAge(DateTime birth)
         {
             DateTime birth_16 = birth.AddYears(16);
             DateTime today = DateTime.Now;
-            if (birth_16.Date >= today.Date)
+            if (birth_16.Date <= today.Date)
                 return true;
             return false;
         }

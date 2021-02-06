@@ -35,9 +35,9 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
                 name: "Occupation",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Profession = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Profession = table.Column<string>(type: "varchar(50)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -60,7 +60,8 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
                     Company = table.Column<short>(type: "smallint", nullable: false),
                     ProfessionalRegistration = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     AddressId = table.Column<long>(type: "bigint", nullable: false),
-                    OccupationId = table.Column<long>(type: "bigint", nullable: false)
+                    OccupationId = table.Column<short>(type: "smallint", nullable: false),
+                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {

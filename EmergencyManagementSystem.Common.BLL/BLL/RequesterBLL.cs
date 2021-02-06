@@ -9,7 +9,7 @@ using System;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
-    public class RequesterBLL : BaseBLL<RequesterModel>, IRequesterBLL
+    public class RequesterBLL : BaseBLL<RequesterModel, Requester>, IRequesterBLL
     {
         private readonly IMapper _mapper;
         private readonly IRequesterDAL _requesterDAL;
@@ -49,22 +49,25 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             }
         }
 
-        public override Result Register(RequesterModel model)
+        public override Result<Requester> Register(RequesterModel model)
         {
             try
             {
                 Requester requester = _mapper.Map<Requester>(model);
-
-                Result result = _requesterValidation.Validate(requester);
+                var result = _requesterValidation.Validate(requester);
                 if (!result.Success)
                     return result;
 
                 _requesterDAL.Insert(requester);
-                return _requesterDAL.Save();
+                var resultSave = _requesterDAL.Save();
+                if (!resultSave.Success)
+                    return Result<Requester>.BuildError(resultSave.Messages);
+
+                return Result<Requester>.BuildSuccess(requester);
             }
             catch (Exception error)
             {
-                return Result.BuildError("Erro no momento de registrar o solicitante.", error);
+                return Result<Requester>.BuildError("Erro no momento de registrar o solicitante.", error);
             }
         }
 

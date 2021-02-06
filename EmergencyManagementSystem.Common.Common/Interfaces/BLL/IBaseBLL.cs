@@ -2,11 +2,13 @@
 
 namespace EmergencyManagementSystem.Common.Common.Interfaces.BLL
 {
-    public interface IBaseBLL<T> where T : class
+    public interface IBaseBLL<TModel, TEntity>
+        where TModel : class
+        where TEntity : class
     {
-          Result Register(T model);
-          Result Update(T model);
-          Result Delete(T model);
-          Result<T> Find(IFilter filter);
+        Result<TEntity> Register(TModel model);
+        Result Update(TModel model);
+        Result Delete(TModel model);
+        Result<TModel> Find(IFilter filter);
     }
 }

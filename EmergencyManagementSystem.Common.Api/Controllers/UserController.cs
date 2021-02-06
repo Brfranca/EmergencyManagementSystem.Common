@@ -2,6 +2,7 @@
 using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
+using EmergencyManagementSystem.Common.Entities.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,7 +14,7 @@ namespace EmergencyManagementSystem.Common.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : BaseController<UserModel>
+    public class UserController : BaseController<UserModel, User>
     {
         public UserController(IUserBLL userBLL) : base(userBLL)
         {

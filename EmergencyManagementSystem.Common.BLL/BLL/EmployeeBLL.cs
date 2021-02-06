@@ -9,7 +9,7 @@ using System;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
-    public class EmployeeBLL : BaseBLL<EmployeeModel>, IEmployeeBLL
+    public class EmployeeBLL : BaseBLL<EmployeeModel, Employee>, IEmployeeBLL
     {
         private readonly IMapper _mapper;
         private readonly IEmployeeDAL _employeeDAL;
@@ -51,12 +51,18 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             }
         }
 
-        public override Result Register(EmployeeModel employeeModel)
+        public override Result<Employee> Register(EmployeeModel employeeModel)
         {
             try
             {
                 var employee = _mapper.Map<Employee>(employeeModel);
                 employee.Guid = Guid.NewGuid();
+
+                var resultAdress = _addressBLL.Register(employeeModel.AddressModel);
+                if (!resultAdress.Success)
+                    return Result<Employee>.BuildError(resultAdress.Messages);
+
+                employee.Address = resultAdress.Model;
 
                 var result = _employeeValidation.Validate(employee);
                 if (!result.Success)
@@ -64,15 +70,15 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
 
                 _employeeDAL.Insert(employee);
 
-                var resultAdress = _addressBLL.Register(employeeModel.AddressModel);
-                if (!result.Success)
-                    return resultAdress;
+                var resultSave = _employeeDAL.Save();
+                if (!resultSave.Success)
+                    return Result<Employee>.BuildError(resultSave.Messages);
 
-                return _employeeDAL.Save();
+                return Result<Employee>.BuildSuccess(employee);
             }
             catch (Exception error)
             {
-                return Result.BuildError("Erro no momento de registar o funcionário.", error);
+                return Result<Employee>.BuildError("Erro no momento de registar o funcionário.", error);
             }
         }
 

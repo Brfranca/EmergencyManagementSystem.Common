@@ -6,34 +6,36 @@ namespace EmergencyManagementSystem.Common.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BaseController<T> : ControllerBase where T : class
+    public class BaseController<TModel, TEntity> : ControllerBase
+        where TModel : class
+        where TEntity : class
     {
-        private readonly IBaseBLL<T> _baseBLL;
-        public BaseController(IBaseBLL<T> baseBLL)
+        private readonly IBaseBLL<TModel, TEntity> _baseBLL;
+        public BaseController(IBaseBLL<TModel, TEntity> baseBLL)
         {
             _baseBLL = baseBLL;
         }
 
         [HttpPost("Register")]
-        public Result Register(T model)
+        public Result Register(TModel model)
         {
             return _baseBLL.Register(model);
         }
 
         [HttpPost("Delete")]
-        public Result Delete(T model)
+        public Result Delete(TModel model)
         {
             return _baseBLL.Delete(model);
         }
 
         [HttpGet("Find")]
-        public Result<T> Find(IFilter filter)
+        public Result<TModel> Find(IFilter filter)
         {
             return _baseBLL.Find(filter);
         }
 
         [HttpPost("Update")]
-        public Result Update(T model)
+        public Result Update(TModel model)
         {
             return _baseBLL.Update(model);
         }

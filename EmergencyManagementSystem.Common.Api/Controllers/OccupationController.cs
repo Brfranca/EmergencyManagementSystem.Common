@@ -1,5 +1,6 @@
 ﻿using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
+using EmergencyManagementSystem.Common.Entities.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,7 +12,7 @@ namespace EmergencyManagementSystem.Common.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OccupationController : BaseController<OccupationModel>
+    public class OccupationController : BaseController<OccupationModel, Occupation>
     {
         public OccupationController(IOccupationBLL occupationBLL) : base(occupationBLL)
         {
