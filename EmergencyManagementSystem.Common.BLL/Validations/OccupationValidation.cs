@@ -8,11 +8,12 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
         public OccupationValidation()
         {
             RuleFor(o => o.Profession)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor informar o cargo profissional.")
                 .MaximumLength(50)
-                .WithMessage("O cargo deve ter no máximo 50 letras.");
+                .WithMessage("O cargo deve ter no máximo 50 caracteres.");
         }
     }
 }

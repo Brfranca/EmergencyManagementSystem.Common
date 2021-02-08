@@ -16,10 +16,13 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             _employeeDAL = employeeDAL;
 
             RuleFor(e => e.Address)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
+                .NotEmpty()
                 .WithMessage("Favor inserir o endereço.");
 
             RuleFor(e => e.Name)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor informar o nome completo.")
@@ -31,6 +34,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("O nome não deve conter números ou caracteres especiais.");
 
             RuleFor(e => e.CPF)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor informar o CPF.")
@@ -42,6 +46,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("CPF já cadastrado em nossa base de dados.");
 
             RuleFor(e => e.BirthDate)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor informar a data de nascimento.")
@@ -49,6 +54,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("O funcionário deve ter no mínimo 16 anos.");
 
             RuleFor(e => e.RG)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor informar o RG.")
@@ -60,6 +66,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("RG já cadastrado em nossa base de dados.");
 
             RuleFor(e => e.Telephone)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor informar o telefone.")
@@ -67,11 +74,13 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("Telefone inválido");
 
             RuleFor(e => e.OccupationId)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor inserir a profissão do funcionário.");
 
             RuleFor(e => e.Email)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor informar o e-mail.")
@@ -81,10 +90,12 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("E-mail inválido.");
 
             RuleFor(e => e.ProfessionalRegistration)
+                .Cascade(CascadeMode.Stop)
                 .MaximumLength(50)
-                .WithMessage("O registro profissional deve conter no máximo 50 letras.");
+                .WithMessage("O registro profissional deve conter no máximo 50 caracteres.");
 
             RuleFor(e => e.Company)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .WithMessage("Favor informar a corporação.")
                 .IsInEnum()
