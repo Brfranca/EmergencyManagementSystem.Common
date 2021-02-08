@@ -39,13 +39,6 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .Length(3, 60)
                 .WithMessage("A referência deve ter entre 3 e 60 letras");
 
-            RuleFor(e => e.State)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("Favor informar o nome do estado.")
-                .Length(2)
-                .WithMessage("O estado deve conter 2 letras.");
-
             RuleFor(e => e.Street)
                 .NotNull()
                 .NotEmpty()
