@@ -6,6 +6,8 @@ using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using System;
+using System.Linq;
+using X.PagedList;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
@@ -15,7 +17,8 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         private readonly IEmployeeDAL _employeeDAL;
         private readonly EmployeeValidation _employeeValidation;
         private readonly IAddressBLL _addressBLL;
-        public EmployeeBLL(IEmployeeDAL employeeDAL, EmployeeValidation employeeValidation, IMapper mapper, IAddressBLL addressBLL)
+        public EmployeeBLL(IEmployeeDAL employeeDAL, EmployeeValidation employeeValidation,
+            IMapper mapper, IAddressBLL addressBLL) : base(employeeDAL)
         {
             _employeeDAL = employeeDAL;
             _employeeValidation = employeeValidation;
@@ -49,6 +52,18 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 return Result<EmployeeModel>.BuildError("Erro ao localizar o funcionário.", error);
             }
+        }
+
+        public override IQueryable<EmployeeModel> ApplyFilterPagination(IQueryable<Employee> query, IFilter filter)
+        {
+            var employeeFilter = (EmployeeFilter)filter;
+
+            if (!string.IsNullOrWhiteSpace(employeeFilter.Name))
+                query = query.Where(d => d.Name == employeeFilter.Name);
+            if (!string.IsNullOrWhiteSpace(employeeFilter.CPF))
+                query = query.Where(d => d.CPF == employeeFilter.CPF);
+
+            return query.Select(d => _mapper.Map<EmployeeModel>(d));
         }
 
         public override Result<Employee> Register(EmployeeModel employeeModel)

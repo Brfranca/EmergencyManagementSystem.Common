@@ -6,6 +6,7 @@ using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using System;
+using System.Linq;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
@@ -15,11 +16,17 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         private readonly IOccupationDAL _occupationDAL;
         private readonly OccupationValidation _occupationValidation;
 
-        public OccupationBLL(IMapper mapper, IOccupationDAL occupationDAL, OccupationValidation occupationValidation)
+        public OccupationBLL(IMapper mapper, IOccupationDAL occupationDAL,
+            OccupationValidation occupationValidation) : base(occupationDAL)
         {
             _mapper = mapper;
             _occupationDAL = occupationDAL;
             _occupationValidation = occupationValidation;
+        }
+
+        public override IQueryable<OccupationModel> ApplyFilterPagination(IQueryable<Occupation> query, IFilter filter)
+        {
+            throw new NotImplementedException();
         }
 
         public override Result Delete(OccupationModel model)

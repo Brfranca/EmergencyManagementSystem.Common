@@ -1,21 +1,24 @@
 ﻿using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
+using X.PagedList;
 
 namespace EmergencyManagementSystem.Common.DAL.DAL
 {
-    public class BaseDAL<T> : IBaseDAL<T> where T : class
+    public class BaseDAL<TEntity> : IBaseDAL<TEntity> where TEntity : class
     {
-        public DbSet<T> Set { get; set; }
+        public DbSet<TEntity> Set { get; set; }
         public Context Context { get; set; }
         public BaseDAL(Context context)
         {
             Context = context;
-            Set = context.Set<T>();
+            Set = context.Set<TEntity>();
         }
 
-        public Result Insert(T entity)
+        public Result Insert(TEntity entity)
         {
             try
             {
@@ -24,11 +27,11 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
             }
             catch (Exception error)
             {
-                return Result.BuildError($"Erro ao adicionar {nameof(T)}", error);
+                return Result.BuildError($"Erro ao adicionar {nameof(TEntity)}", error);
             }
         }
 
-        public Result Update(T entity)
+        public Result Update(TEntity entity)
         {
             try
             {
@@ -37,11 +40,11 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
             }
             catch (Exception error)
             {
-                return Result.BuildError($"Erro ao atualizar {nameof(T)}", error);
+                return Result.BuildError($"Erro ao atualizar {nameof(TEntity)}", error);
             }
         }
 
-        public Result Delete(T entity)
+        public Result Delete(TEntity entity)
         {
             try
             {
@@ -50,7 +53,7 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
             }
             catch (Exception error)
             {
-                return Result.BuildError($"Erro ao deletar {nameof(T)}", error);
+                return Result.BuildError($"Erro ao deletar {nameof(TEntity)}", error);
             }
         }
 
@@ -68,6 +71,12 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
             {
                 return Result.BuildError("Erro ao salvar o contexto.", error);
             }
+        }
+
+        public IPagedList<TModel> FindPaginated<TModel>(IFilter filter,
+            Func<IQueryable<TEntity>, IFilter, IQueryable<TModel>> applyFilter)
+        {
+            return applyFilter(Set.AsQueryable(), filter).ToPagedList(filter.CurrentPage, 10);
         }
     }
 }

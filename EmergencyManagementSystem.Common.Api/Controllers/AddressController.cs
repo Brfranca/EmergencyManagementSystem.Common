@@ -1,4 +1,5 @@
-﻿using EmergencyManagementSystem.Common.Common.Interfaces;
+﻿using EmergencyManagementSystem.Common.Common.Filters;
+using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,7 @@ namespace EmergencyManagementSystem.Common.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AddressController : BaseController<AddressModel, Address>
+    public class AddressController : BaseController<AddressModel, Address, AddressFilter>
     {
         public AddressController(IAddressBLL addressBLL) : base(addressBLL)
         {

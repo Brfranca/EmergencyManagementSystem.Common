@@ -6,6 +6,7 @@ using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using System;
+using System.Linq;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
@@ -16,10 +17,16 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         private readonly AddressValidation _addressValidation;
 
         public AddressBLL(IAddressDAL addressDAL, AddressValidation addressValidation, IMapper mapper)
+            : base(addressDAL)
         {
             _addressDAL = addressDAL;
             _addressValidation = addressValidation;
             _mapper = mapper;
+        }
+
+        public override IQueryable<AddressModel> ApplyFilterPagination(IQueryable<Address> query, IFilter filter)
+        {
+            throw new NotImplementedException();
         }
 
         public override Result Delete(AddressModel model)
@@ -60,7 +67,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
                 if (!result.Success)
                     return result;
 
-                 _addressDAL.Insert(address);
+                _addressDAL.Insert(address);
                 return Result<Address>.BuildSuccess(address);
             }
             catch (Exception error)

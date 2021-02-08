@@ -6,6 +6,7 @@ using EmergencyManagementSystem.Common.Common.Interfaces.DAL;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using System;
+using System.Linq;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
@@ -14,11 +15,17 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         private readonly IMapper _mapper;
         private readonly IRequesterDAL _requesterDAL;
         private readonly RequesterValidation _requesterValidation;
-        public RequesterBLL(IMapper mapper, IRequesterDAL requesterDAL, RequesterValidation requesterValidation)
+        public RequesterBLL(IMapper mapper, IRequesterDAL requesterDAL,
+            RequesterValidation requesterValidation) : base(requesterDAL)
         {
             _mapper = mapper;
             _requesterDAL = requesterDAL;
             _requesterValidation = requesterValidation;
+        }
+
+        public override IQueryable<RequesterModel> ApplyFilterPagination(IQueryable<Requester> query, IFilter filter)
+        {
+            throw new NotImplementedException();
         }
 
         public override Result Delete(RequesterModel model)

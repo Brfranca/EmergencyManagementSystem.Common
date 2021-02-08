@@ -4,8 +4,10 @@ using EmergencyManagementSystem.Common.Common.Filters;
 using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
+using EmergencyManagementSystem.Common.Common.Utils;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using System;
+using System.Linq;
 
 namespace EmergencyManagementSystem.Common.BLL.BLL
 {
@@ -14,11 +16,17 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         private readonly IMapper _mapper;
         private readonly IUserDAL _userDAL;
         private readonly UserValidation _userValidation;
-        public UserBLL(IUserDAL userDAL, UserValidation userValidation, IMapper mapper)
+        public UserBLL(IUserDAL userDAL, UserValidation userValidation, IMapper mapper) 
+            : base(userDAL)
         {
             _userDAL = userDAL;
             _userValidation = userValidation;
             _mapper = mapper;
+        }
+
+        public override IQueryable<UserModel> ApplyFilterPagination(IQueryable<User> query, IFilter filer)
+        {
+            throw new NotImplementedException();
         }
 
         public override Result Delete(UserModel model)
@@ -57,6 +65,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             try
             {
                 User user = _mapper.Map<User>(userModel);
+                user.Password = Hash.Create(userModel.Password);
 
                 var result = _userValidation.Validate(user);
                 if (!result.Success)

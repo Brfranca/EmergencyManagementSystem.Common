@@ -2,7 +2,7 @@
 
 namespace EmergencyManagementSystem.Common.Common.Filters
 {
-    public class OccupationFilter : IFilter
+    public class OccupationFilter : FilterBase
     {
         public string Profession { get; set; }
     }

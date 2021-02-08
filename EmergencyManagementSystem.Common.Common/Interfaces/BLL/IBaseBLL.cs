@@ -1,4 +1,5 @@
 ﻿using EmergencyManagementSystem.Common.Common.Models;
+using X.PagedList;
 
 namespace EmergencyManagementSystem.Common.Common.Interfaces.BLL
 {
@@ -10,5 +11,6 @@ namespace EmergencyManagementSystem.Common.Common.Interfaces.BLL
         Result Update(TModel model);
         Result Delete(TModel model);
         Result<TModel> Find(IFilter filter);
+        PagedList<TModel> FindPaginated(IFilter filter);
     }
 }

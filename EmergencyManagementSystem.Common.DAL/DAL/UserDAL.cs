@@ -1,5 +1,6 @@
 ﻿using EmergencyManagementSystem.Common.Common.Filters;
 using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Utils;
 using EmergencyManagementSystem.Common.Entities.Entities;
 using System.Linq;
 
@@ -13,7 +14,11 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
 
         public User Find(UserFilter filter)
         {
-            return Set.FirstOrDefault(x => x.Login == filter.Login);
+            return Set.FirstOrDefault
+                (
+                    d => d.Login == filter.Login
+                    && d.Password == Hash.Create(filter.Password)
+                );
         }
     }
 }

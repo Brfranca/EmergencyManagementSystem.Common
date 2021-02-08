@@ -2,8 +2,9 @@
 
 namespace EmergencyManagementSystem.Common.Common.Filters
 {
-    public class UserFilter : IFilter
+    public class UserFilter : FilterBase
     {
         public string Login { get; set; }
+        public string Password { get; set; }
     }
 }

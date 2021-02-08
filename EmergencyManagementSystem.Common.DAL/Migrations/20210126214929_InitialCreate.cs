@@ -89,7 +89,7 @@ namespace EmergencyManagementSystem.Common.DAL.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Login = table.Column<string>(type: "varchar(60)", maxLength: 60, nullable: false),
-                    Password = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false),
+                    Password = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: false),
                     EmployeeId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>

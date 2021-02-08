@@ -15,7 +15,7 @@ namespace EmergencyManagementSystem.Common.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : BaseController<UserModel, User>
+    public class UserController : BaseController<UserModel, User, UserFilter>
     {
         private readonly IUserBLL _userBLL;
         public UserController(IUserBLL userBLL) : base(userBLL)
