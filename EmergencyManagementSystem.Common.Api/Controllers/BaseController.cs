@@ -45,7 +45,7 @@ namespace EmergencyManagementSystem.Common.API.Controllers
             return new PaginationModel<TModel>(result.ToListAsync().Result, new DataPagination(result.GetMetaData()));
         }
 
-        [HttpPost]
+        [HttpPost("Find")]
         public Result<TModel> Find(TFilter filter)
         {
             var result = _baseBLL.Find((IFilter)filter);
