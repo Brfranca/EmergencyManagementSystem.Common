@@ -13,6 +13,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             _employeeDAL = employeeDAL;
 
             RuleFor(d => d.EmployeeId)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor selecionar um funcionário")
@@ -20,6 +21,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("Funcionário não encontrado");
 
             RuleFor(d => d.Login)
+                .Cascade(CascadeMode.Stop)
                 .NotEmpty()
                 .NotNull()
                 .WithMessage("Usuário deve ser informado")
@@ -29,6 +31,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("Usuário inválido");
 
             RuleFor(d => d.Password)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Senha deve ser informada")

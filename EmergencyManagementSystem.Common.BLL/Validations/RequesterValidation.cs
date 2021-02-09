@@ -13,6 +13,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             _requesterDAL = requesterDAL;
 
             RuleFor(e => e.Name)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor informar o nome.")
@@ -22,10 +23,12 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("O nome não deve conter números ou caracteres especiais.");
 
             RuleFor(e => e.Address)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .WithMessage("Favor inserir o endereço.");
 
             RuleFor(e => e.Telephone)
+                .Cascade(CascadeMode.Stop)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Favor informar o telefone.")
