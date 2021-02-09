@@ -1,6 +1,7 @@
 ﻿using EmergencyManagementSystem.Common.Common.Filters;
 using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Entities.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace EmergencyManagementSystem.Common.DAL.DAL
@@ -13,7 +14,17 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
 
         public Employee Find(EmployeeFilter filter)
         {
-            return Set.FirstOrDefault(d => d.CPF == filter.CPF);
+            var query = Set.Include(d => d.Address).AsQueryable();
+            if (filter.Id > 0)
+                query = query.Where(d => d.Id == filter.Id);
+
+            else if (!string.IsNullOrWhiteSpace(filter.Name))
+                query = query.Where(d => d.Name.Contains(filter.Name));
+
+            else if (!string.IsNullOrWhiteSpace(filter.CPF))
+                query = query.Where(d => d.CPF == filter.CPF);
+
+            return query.FirstOrDefault();
         }
 
         public bool ExistEmployee(long employeeId)
