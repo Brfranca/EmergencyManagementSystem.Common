@@ -58,7 +58,6 @@ namespace EmergencyManagementSystem.Common.API
             services.AddScoped<IRequesterDAL, RequesterDAL>();
             services.AddScoped<RequesterValidation>();
 
-
             IMapper mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<UserModel, User>();
@@ -67,8 +66,8 @@ namespace EmergencyManagementSystem.Common.API
                 cfg.CreateMap<Occupation, OccupationModel>();
                 cfg.CreateMap<AddressModel, Address>();
                 cfg.CreateMap<Address, AddressModel>();
-                cfg.CreateMap<EmployeeModel, Employee>();
-                cfg.CreateMap<Employee, EmployeeModel>();
+                cfg.CreateMap<EmployeeModel, Employee>().ForMember(a => a.Address, b => b.MapFrom(c => c.AddressModel));
+                cfg.CreateMap<Employee, EmployeeModel>().ForMember(a => a.AddressModel, b => b.MapFrom(c => c.Address));
                 cfg.CreateMap<RequesterModel, Requester>();
                 cfg.CreateMap<Requester, RequesterModel>();
 
