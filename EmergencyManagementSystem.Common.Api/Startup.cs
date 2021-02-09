@@ -58,7 +58,6 @@ namespace EmergencyManagementSystem.Common.API
             services.AddScoped<IRequesterDAL, RequesterDAL>();
             services.AddScoped<RequesterValidation>();
 
-
             IMapper mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<UserModel, User>();

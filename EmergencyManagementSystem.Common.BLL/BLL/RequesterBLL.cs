@@ -23,9 +23,14 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             _requesterValidation = requesterValidation;
         }
 
+        //exemplo de query e aplicacao de filtro e converversao de modelo.
         public override IQueryable<RequesterModel> ApplyFilterPagination(IQueryable<Requester> query, IFilter filter)
         {
-            throw new NotImplementedException();
+            var filtro = (RequesterFilter)filter;
+            if (!string.IsNullOrWhiteSpace(filtro.Telephone))
+                query = query.Where(d => d.Telephone == filtro.Telephone);
+
+            return query.Select(d => _mapper.Map<RequesterModel>(d));
         }
 
         public override Result Delete(RequesterModel model)
