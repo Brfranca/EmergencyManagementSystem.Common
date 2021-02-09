@@ -17,16 +17,8 @@ namespace EmergencyManagementSystem.Common.API.Controllers
     [ApiController]
     public class UserController : BaseController<UserModel, User, UserFilter>
     {
-        private readonly IUserBLL _userBLL;
         public UserController(IUserBLL userBLL) : base(userBLL)
         {
-            _userBLL = userBLL;
-        }
-
-        [HttpPost("Find")]
-        public Result<UserModel> Find(UserFilter filter)
-        {
-            return _userBLL.Find(filter);
         }
     }
 }
