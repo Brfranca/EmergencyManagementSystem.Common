@@ -18,7 +18,7 @@ namespace EmergencyManagementSystem.Common.Common.Models
         public string ProfessionalRegistration { get; set; }
         public  AddressModel AddressModel { get; set; }
         public long AddressId { get; set; }
-        public short OccupationId { get; set; }
+        public Occupation Occupation { get; set; }
 
     }
 }

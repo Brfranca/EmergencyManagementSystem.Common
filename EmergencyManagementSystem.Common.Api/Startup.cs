@@ -51,9 +51,6 @@ namespace EmergencyManagementSystem.Common.API
             services.AddScoped<IEmployeeBLL, EmployeeBLL>();
             services.AddScoped<IEmployeeDAL, EmployeeDAL>();
             services.AddScoped<EmployeeValidation>();
-            services.AddScoped<IOccupationBLL, OccupationBLL>();
-            services.AddScoped<IOccupationDAL, OccupationDAL>();
-            services.AddScoped<OccupationValidation>();
             services.AddScoped<IRequesterBLL, RequesterBLL>();
             services.AddScoped<IRequesterDAL, RequesterDAL>();
             services.AddScoped<RequesterValidation>();
@@ -62,8 +59,6 @@ namespace EmergencyManagementSystem.Common.API
             {
                 cfg.CreateMap<UserModel, User>();
                 cfg.CreateMap<User, UserModel>();
-                cfg.CreateMap<OccupationModel, Occupation>();
-                cfg.CreateMap<Occupation, OccupationModel>();
                 cfg.CreateMap<AddressModel, Address>();
                 cfg.CreateMap<Address, AddressModel>();
                 cfg.CreateMap<EmployeeModel, Employee>().ForMember(a => a.Address, b => b.MapFrom(c => c.AddressModel));

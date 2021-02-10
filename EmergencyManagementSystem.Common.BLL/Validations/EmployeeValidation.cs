@@ -73,12 +73,6 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .Must(IsValidPhone)
                 .WithMessage("Telefone inválido");
 
-            RuleFor(e => e.OccupationId)
-                .Cascade(CascadeMode.Stop)
-                .NotNull()
-                .NotEmpty()
-                .WithMessage("Favor inserir a profissão do funcionário.");
-
             RuleFor(e => e.Email)
                 .Cascade(CascadeMode.Stop)
                 .NotNull()
@@ -100,6 +94,13 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("Favor informar a corporação.")
                 .IsInEnum()
                 .WithMessage("Corporação inválida.");
+
+            RuleFor(e => e.Occupation)
+                .Cascade(CascadeMode.Stop)
+                .NotNull()
+                .WithMessage("Favor informar a ocupação.")
+                .IsInEnum()
+                .WithMessage("Ocupação inválida.");
         }
 
         private bool ContainsFullName(string fullName)

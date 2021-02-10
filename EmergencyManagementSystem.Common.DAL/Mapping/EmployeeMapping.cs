@@ -45,10 +45,6 @@ namespace EmergencyManagementSystem.Common.DAL.Mapping
                 .HasMaxLength(100)
                 .IsRequired();
 
-            builder.HasOne(d => d.Occupation)
-                .WithMany()
-                .HasForeignKey(d => d.OccupationId);
-
             builder.Property(d => d.RG)
                 .HasColumnName("RG")
                 .HasColumnType("varchar")
@@ -64,6 +60,16 @@ namespace EmergencyManagementSystem.Common.DAL.Mapping
             builder.HasOne(d => d.Address)
                 .WithMany()
                 .HasForeignKey(d => d.AddressId);
+
+            builder.Property(d => d.Occupation)
+                 .HasColumnName("Occupation")
+                 .HasColumnType("int")
+                 .IsRequired();
+
+            builder.Property(d => d.Company)
+                 .HasColumnName("Company")
+                 .HasColumnType("int")
+                 .IsRequired();
         }
     }
 }
