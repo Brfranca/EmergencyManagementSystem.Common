@@ -34,13 +34,21 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
 
         //rever
 
-        public bool ExistCPF(string cpf)
+        public bool ExistCPF(string cpf, long id)
         {
+            if (id > 0)
+            {
+                return Set.Where(d => d.Id != id).Any(d => d.CPF == cpf);
+            }
             return Set.Any(d => d.CPF == cpf);
         }
 
-        public bool ExistRG(string rg)
+        public bool ExistRG(string rg, long id)
         {
+            if (id > 0)
+            {
+                return Set.Where(d => d.Id != id).Any(d => d.RG == rg);
+            }
             return Set.Any(d => d.RG == rg);
         }
     }

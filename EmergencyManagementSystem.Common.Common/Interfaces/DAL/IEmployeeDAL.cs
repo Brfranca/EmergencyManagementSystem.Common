@@ -7,7 +7,7 @@ namespace EmergencyManagementSystem.Common.Common.Interfaces
     {
         Employee Find(EmployeeFilter filter);
         bool ExistEmployee(long employeeId);
-        bool ExistCPF(string cpf);
-        bool ExistRG(string rg);
+        bool ExistCPF(string cpf, long id);
+        bool ExistRG(string rg, long id);
     }
 }

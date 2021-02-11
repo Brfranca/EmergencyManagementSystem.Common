@@ -84,22 +84,27 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             }
         }
 
-        public override Result Update(UserModel userModel)
+        public override Result<User> Update(UserModel userModel)
         {
             try
             {
                 User user = _mapper.Map<User>(userModel);
+                user.Password = Hash.Create(userModel.Password);
 
-                Result result = _userValidation.Validate(user);
+                var result = _userValidation.Validate(user);
                 if (!result.Success)
                     return result;
 
-                _userDAL.Update(user);
-                return _userDAL.Save();
+                _userDAL.Insert(user);
+                var resultSave = _userDAL.Save();
+                if (!resultSave.Success)
+                    return Result<User>.BuildError(resultSave.Messages);
+
+                return Result<User>.BuildSuccess(user);
             }
             catch (Exception error)
             {
-                return Result.BuildError("Erro ao alterar o registro do usuário.", error);
+                return Result<User>.BuildError("Erro ao alterar o registro do usuário.", error);
             }
         }
     }

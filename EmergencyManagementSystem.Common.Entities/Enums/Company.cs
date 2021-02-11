@@ -2,6 +2,7 @@
 {
     public enum Company : short
     {
+        Invalid,
         SAMU,
         Bombeiro
     }

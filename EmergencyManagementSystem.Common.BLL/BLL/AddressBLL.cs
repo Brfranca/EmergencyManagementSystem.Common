@@ -81,7 +81,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             }
         }
 
-        public override Result Update(AddressModel model)
+        public override Result<Address> Update(AddressModel model)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
                 if (!result.Success)
                     return result;
 
-                _addressDAL.Insert(address);
+                _addressDAL.Update(address);
 
                 var resultSave = _addressDAL.Save();
                 if (!resultSave.Success)
@@ -101,7 +101,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             }
             catch (Exception error)
             {
-                return Result.BuildError("Erro ao alterar o registro do endereço.", error);
+                return Result<Address>.BuildError("Erro ao alterar o registro do endereço.", error);
             }
         }
     }

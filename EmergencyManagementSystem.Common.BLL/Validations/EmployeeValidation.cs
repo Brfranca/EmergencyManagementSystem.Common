@@ -41,9 +41,13 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .Length(11)
                 .WithMessage("O CPF deve conter 11 números.")
                 .Must(IsValidCPF)
-                .WithMessage("CPF inválido.")
-                .Must(ExistCPF)
-                .WithMessage("CPF já cadastrado em nossa base de dados.");
+                .WithMessage("CPF inválido.");
+                
+            RuleFor(m => new { m.CPF, m.Id }).Must(x => ExistCPF(x.CPF, x.Id))
+                                      .WithMessage("CPF já cadastrado em nossa base de dados.");
+
+            RuleFor(m => new { m.RG, m.Id }).Must(x => ExistCPF(x.RG, x.Id))
+                                      .WithMessage("RG já cadastrado em nossa base de dados.");
 
             RuleFor(e => e.BirthDate)
                 .Cascade(CascadeMode.Stop)
@@ -60,8 +64,6 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("Favor informar o RG.")
                 .MaximumLength(10)
                 .WithMessage("O RG deve ter no máximo 10 números.")
-                .Must(ExistRG)
-                .WithMessage("RG já cadastrado em nossa base de dados.")
                 .Must(IsValidRG)
                 .WithMessage("O RG deve conter apenas números.");
 
@@ -148,14 +150,14 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             return cpf.EndsWith(digito);
         }
 
-        private bool ExistCPF(string cpf)
+        private bool ExistCPF(string cpf, long id)
         {
-            return !_employeeDAL.ExistCPF(cpf);
+            return !_employeeDAL.ExistCPF(cpf, id);
         }
 
-        private bool ExistRG(string rg)
+        private bool ExistRG(string rg, long id)
         {
-            return !_employeeDAL.ExistRG(rg);
+            return !_employeeDAL.ExistRG(rg, id);
         }
 
         private bool IsValidAge(DateTime birth)

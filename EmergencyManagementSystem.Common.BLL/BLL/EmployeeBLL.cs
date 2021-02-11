@@ -97,42 +97,42 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             }
         }
 
-        public override Result Update(EmployeeModel model)
+        public override Result<Employee> Update(EmployeeModel model)
         {
             try
             {
-                //var employee = _mapper.Map<Employee>(model);
+                var employee = _mapper.Map<Employee>(model);
 
-                //var resultAdress = _addressBLL.Update(model.AddressModel);
-                //if (!resultAdress.Success)
-                //    return Result<Employee>.BuildError(resultAdress.Messages);
+                var resultAdress = _addressBLL.Update(model.AddressModel);
+                if (!resultAdress.Success)
+                    return Result<Employee>.BuildError(resultAdress.Messages);
 
-                //employee.Address = resultAdress.Model;
-
-                //var result = _employeeValidation.Validate(employee);
-                //if (!result.Success)
-                //    return result;
-
-                //_employeeDAL.Insert(employee);
-
-                //var resultSave = _employeeDAL.Save();
-                //if (!resultSave.Success)
-                //    return Result<Employee>.BuildError(resultSave.Messages);
-
-                //return Result<Employee>.BuildSuccess(employee);
-
-                Employee employee = _mapper.Map<Employee>(model);
+                employee.Address = resultAdress.Model;
 
                 var result = _employeeValidation.Validate(employee);
                 if (!result.Success)
                     return result;
 
                 _employeeDAL.Update(employee);
-                return _employeeDAL.Save();
+
+                var resultSave = _employeeDAL.Save();
+                if (!resultSave.Success)
+                    return Result<Employee>.BuildError(resultSave.Messages);
+
+                return Result<Employee>.BuildSuccess(employee);
+
+                //Employee employee = _mapper.Map<Employee>(model);
+
+                //var result = _employeeValidation.Validate(employee);
+                //if (!result.Success)
+                //    return result;
+
+                //_employeeDAL.Update(employee);
+                //return _employeeDAL.Save();
             }
             catch (Exception error)
             {
-                return Result.BuildError("Erro ao alterar o registro do funcionário.", error);
+                return Result<Employee>.BuildError("Erro ao alterar o registro do funcionário.", error);
             }
         }
     }
