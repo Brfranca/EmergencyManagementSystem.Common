@@ -32,6 +32,8 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
             return Set.Any(d => d.Id == employeeId);
         }
 
+        //rever
+
         public bool ExistCPF(string cpf)
         {
             return Set.Any(d => d.CPF == cpf);

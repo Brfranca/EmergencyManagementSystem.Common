@@ -60,10 +60,10 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("Favor informar o RG.")
                 .MaximumLength(10)
                 .WithMessage("O RG deve ter no máximo 10 números.")
-                .Must(IsValidRG)
-                .WithMessage("O RG deve conter apenas números.")
                 .Must(ExistRG)
-                .WithMessage("RG já cadastrado em nossa base de dados.");
+                .WithMessage("RG já cadastrado em nossa base de dados.")
+                .Must(IsValidRG)
+                .WithMessage("O RG deve conter apenas números.");
 
             RuleFor(e => e.Telephone)
                 .Cascade(CascadeMode.Stop)
