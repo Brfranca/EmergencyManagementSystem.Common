@@ -26,7 +26,12 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
 
         public override IQueryable<AddressModel> ApplyFilterPagination(IQueryable<Address> query, IFilter filter)
         {
-            throw new NotImplementedException();
+            var addressFilter = (AddressFilter)filter;
+
+            if (addressFilter.Id != 0)
+                query = query.Where(d => d.Id == addressFilter.Id);
+
+            return query.Select(d => _mapper.Map<AddressModel>(d));
         }
 
         public override Result Delete(AddressModel model)
@@ -93,9 +98,9 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
 
                 _addressDAL.Update(address);
 
-                var resultSave = _addressDAL.Save();
-                if (!resultSave.Success)
-                    return Result<Address>.BuildError(resultSave.Messages);
+                //var resultSave = _addressDAL.Save();
+                //if (!resultSave.Success)
+                //    return Result<Address>.BuildError(resultSave.Messages);
 
                 return Result<Address>.BuildSuccess(address);
             }

@@ -46,7 +46,7 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
             RuleFor(m => new { m.CPF, m.Id }).Must(x => ExistCPF(x.CPF, x.Id))
                                       .WithMessage("CPF já cadastrado em nossa base de dados.");
 
-            RuleFor(m => new { m.RG, m.Id }).Must(x => ExistCPF(x.RG, x.Id))
+            RuleFor(m => new { m.RG, m.Id }).Must(x => ExistRG(x.RG, x.Id))
                                       .WithMessage("RG já cadastrado em nossa base de dados.");
 
             RuleFor(e => e.BirthDate)

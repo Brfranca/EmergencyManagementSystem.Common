@@ -128,7 +128,11 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
                 //    return result;
 
                 //_employeeDAL.Update(employee);
-                //return _employeeDAL.Save();
+                //var resultSalve = _employeeDAL.Save();
+                //if (!resultSalve.Success)
+                //    return Result<Employee>.BuildError(resultSalve.Messages);
+
+                //return Result<Employee>.BuildSuccess(employee);
             }
             catch (Exception error)
             {
