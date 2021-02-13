@@ -103,6 +103,15 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 var employee = _mapper.Map<Employee>(model);
 
+                var addressModel = new AddressModel
+                {
+                    Id = model.AddressId
+                };
+
+                var resultAddress = _addressBLL.Update(addressModel);
+                if (!resultAddress.Success)
+                    return Result<Employee>.BuildError(resultAddress.Messages);
+
                 var result = _employeeValidation.Validate(employee);
                 if (!result.Success)
                     return result;

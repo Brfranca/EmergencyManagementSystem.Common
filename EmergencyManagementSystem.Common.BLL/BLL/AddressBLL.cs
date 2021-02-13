@@ -90,7 +90,8 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         {
             try
             {
-                Address address = _mapper.Map<Address>(model);
+                var addressModel = Find(new AddressFilter { Id = model.Id });
+                Address address = _mapper.Map<Address>(addressModel);
 
                 var result = _addressValidation.Validate(address);
                 if (!result.Success)
@@ -98,9 +99,9 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
 
                 _addressDAL.Update(address);
 
-                //var resultSave = _addressDAL.Save();
-                //if (!resultSave.Success)
-                //    return Result<Address>.BuildError(resultSave.Messages);
+                var resultSave = _addressDAL.Save();
+                if (!resultSave.Success)
+                    return Result<Address>.BuildError(resultSave.Messages);
 
                 return Result<Address>.BuildSuccess(address);
             }
