@@ -103,36 +103,16 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 var employee = _mapper.Map<Employee>(model);
 
-                var resultAdress = _addressBLL.Update(model.AddressModel);
-                if (!resultAdress.Success)
-                    return Result<Employee>.BuildError(resultAdress.Messages);
-
-                employee.Address = resultAdress.Model;
-
                 var result = _employeeValidation.Validate(employee);
                 if (!result.Success)
                     return result;
 
                 _employeeDAL.Update(employee);
-
-                var resultSave = _employeeDAL.Save();
-                if (!resultSave.Success)
-                    return Result<Employee>.BuildError(resultSave.Messages);
+                var resultSalve = _employeeDAL.Save();
+                if (!resultSalve.Success)
+                    return Result<Employee>.BuildError(resultSalve.Messages);
 
                 return Result<Employee>.BuildSuccess(employee);
-
-                //Employee employee = _mapper.Map<Employee>(model);
-
-                //var result = _employeeValidation.Validate(employee);
-                //if (!result.Success)
-                //    return result;
-
-                //_employeeDAL.Update(employee);
-                //var resultSalve = _employeeDAL.Save();
-                //if (!resultSalve.Success)
-                //    return Result<Employee>.BuildError(resultSalve.Messages);
-
-                //return Result<Employee>.BuildSuccess(employee);
             }
             catch (Exception error)
             {

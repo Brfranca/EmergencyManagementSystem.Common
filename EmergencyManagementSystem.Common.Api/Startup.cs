@@ -40,6 +40,7 @@ namespace EmergencyManagementSystem.Common.API
             {
                 options.UseSqlServer(
                 Configuration.GetConnectionString("Default"));
+                options.UseLazyLoadingProxies();
             }, ServiceLifetime.Scoped);
 
             services.AddScoped<IUserBLL, UserBLL>();
