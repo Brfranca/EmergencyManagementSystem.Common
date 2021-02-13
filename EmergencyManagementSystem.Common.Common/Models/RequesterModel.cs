@@ -1,5 +1,4 @@
-﻿using EmergencyManagementSystem.Common.Entities.Entities;
-using System;
+﻿using System;
 
 namespace EmergencyManagementSystem.Common.Common.Models
 {
@@ -10,6 +9,6 @@ namespace EmergencyManagementSystem.Common.Common.Models
         public string Name { get; set; }
         public string Telephone { get; set; }
         public int AddressId { get; set; }
-        public Address Address { get; set; }
+        public AddressModel AddressModel { get; set; }
     }
 }

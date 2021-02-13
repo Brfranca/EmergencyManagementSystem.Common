@@ -1,5 +1,4 @@
-﻿using EmergencyManagementSystem.Common.Entities.Entities;
-using EmergencyManagementSystem.Common.Entities.Enums;
+﻿using EmergencyManagementSystem.Common.Entities.Enums;
 using System;
 
 namespace EmergencyManagementSystem.Common.Common.Models
