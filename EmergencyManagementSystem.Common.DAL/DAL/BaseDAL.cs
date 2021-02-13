@@ -76,7 +76,7 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
         public IPagedList<TModel> FindPaginated<TModel>(IFilter filter,
             Func<IQueryable<TEntity>, IFilter, IQueryable<TModel>> applyFilter)
         {
-            return applyFilter(Set.AsQueryable(), filter).ToPagedList(filter.CurrentPage, 10);
+            return applyFilter.Invoke(Set.AsQueryable(), filter).ToPagedList(filter.CurrentPage, 10);
         }
     }
 }

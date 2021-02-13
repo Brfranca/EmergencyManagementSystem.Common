@@ -90,8 +90,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         {
             try
             {
-                var addressModel = Find(new AddressFilter { Id = model.Id });
-                Address address = _mapper.Map<Address>(addressModel);
+                Address address = _mapper.Map<Address>(model);
 
                 var result = _addressValidation.Validate(address);
                 if (!result.Success)

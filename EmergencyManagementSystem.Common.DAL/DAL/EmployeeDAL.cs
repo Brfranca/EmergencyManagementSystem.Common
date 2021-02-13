@@ -14,7 +14,7 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
 
         public Employee Find(EmployeeFilter filter)
         {
-            var query = Set.Include(d => d.Address).AsQueryable();
+            var query = Set.AsQueryable();
             if (filter.Id > 0)
                 query = query.Where(d => d.Id == filter.Id);
 

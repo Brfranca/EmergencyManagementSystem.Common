@@ -5,6 +5,7 @@ using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.Entities.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using X.PagedList;
@@ -63,7 +64,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             if (!string.IsNullOrWhiteSpace(employeeFilter.CPF))
                 query = query.Where(d => d.CPF == employeeFilter.CPF);
 
-            return query.Select(d => _mapper.Map<EmployeeModel>(d));
+            return query.Include(d => d.Address).Select(d => _mapper.Map<EmployeeModel>(d));
         }
 
         public override Result<Employee> Register(EmployeeModel employeeModel)
@@ -103,12 +104,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             {
                 var employee = _mapper.Map<Employee>(model);
 
-                var addressModel = new AddressModel
-                {
-                    Id = model.AddressId
-                };
-
-                var resultAddress = _addressBLL.Update(addressModel);
+                var resultAddress = _addressBLL.Update(model.AddressModel);
                 if (!resultAddress.Success)
                     return Result<Employee>.BuildError(resultAddress.Messages);
 
