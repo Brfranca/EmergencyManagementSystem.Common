@@ -60,9 +60,9 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             var employeeFilter = (EmployeeFilter)filter;
 
             if (!string.IsNullOrWhiteSpace(employeeFilter.Name))
-                query = query.Where(d => d.Name == employeeFilter.Name);
+                query = query.Where(d => d.Name.Contains(employeeFilter.Name));
             if (!string.IsNullOrWhiteSpace(employeeFilter.CPF))
-                query = query.Where(d => d.CPF == employeeFilter.CPF);
+                query = query.Where(d => d.CPF.Contains(employeeFilter.CPF));
 
             return query.Include(d => d.Address).Select(d => _mapper.Map<EmployeeModel>(d));
         }
