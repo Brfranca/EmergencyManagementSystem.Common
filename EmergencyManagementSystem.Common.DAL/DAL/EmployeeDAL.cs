@@ -27,6 +27,9 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
             else if (!string.IsNullOrWhiteSpace(filter.CPF))
                 query = query.Where(d => d.CPF == filter.CPF);
 
+            else if (filter.Occupation > 0)
+                query = query.Where(d => d.Occupation == filter.Occupation);
+
             return query.FirstOrDefault();
         }
         
