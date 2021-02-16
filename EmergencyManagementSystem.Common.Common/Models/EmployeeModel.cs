@@ -18,6 +18,6 @@ namespace EmergencyManagementSystem.Common.Common.Models
         public  AddressModel AddressModel { get; set; }
         public long AddressId { get; set; }
         public Occupation Occupation { get; set; }
-
+        public Active Active { get; set; }
     }
 }

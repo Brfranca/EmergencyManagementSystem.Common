@@ -5,6 +5,7 @@ using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.Entities.Entities;
+using EmergencyManagementSystem.Common.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -58,7 +59,6 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         public override IQueryable<EmployeeModel> ApplyFilterPagination(IQueryable<Employee> query, IFilter filter)
         {
             var employeeFilter = (EmployeeFilter)filter;
-
             if (!string.IsNullOrWhiteSpace(employeeFilter.Name))
                 query = query.Where(d => d.Name.Contains(employeeFilter.Name));
             if (!string.IsNullOrWhiteSpace(employeeFilter.CPF))

@@ -1,7 +1,10 @@
 ﻿using EmergencyManagementSystem.Common.Common.Filters;
 using EmergencyManagementSystem.Common.Common.Interfaces;
+using EmergencyManagementSystem.Common.Common.Models;
 using EmergencyManagementSystem.Common.Entities.Entities;
+using EmergencyManagementSystem.Common.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace EmergencyManagementSystem.Common.DAL.DAL
@@ -26,7 +29,7 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
 
             return query.FirstOrDefault();
         }
-
+        
         public bool ExistEmployee(long employeeId)
         {
             return Set.Any(d => d.Id == employeeId);

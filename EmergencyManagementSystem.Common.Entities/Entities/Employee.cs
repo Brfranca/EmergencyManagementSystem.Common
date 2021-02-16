@@ -19,5 +19,6 @@ namespace EmergencyManagementSystem.Common.Entities.Entities
         public virtual Address Address { get; set; }
         public long AddressId { get; set; }
         public virtual Occupation Occupation { get; set; }
+        public  Active Active { get; set; }
     }
 }
