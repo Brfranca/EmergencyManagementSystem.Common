@@ -54,9 +54,11 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("A rua deve conter entre 3 e 60 letras.");
         }
 
-        private bool IsValidName(string Name)
+        private bool IsValidName(string name)
         {
-            return Regex.IsMatch(Name, @"^[\p{L} \.\-]+$");
+            if (name == null)
+                return true;
+            return Regex.IsMatch(name, @"^[\p{L} \.\-]+$");
         }
     }
 }

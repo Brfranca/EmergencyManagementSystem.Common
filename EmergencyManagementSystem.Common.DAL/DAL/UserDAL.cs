@@ -14,6 +14,9 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
 
         public User Find(UserFilter filter)
         {
+            if (filter.EmployeeId > 0)
+                return Set.FirstOrDefault(d => d.EmployeeId == filter.EmployeeId);
+
             return Set.FirstOrDefault
                 (
                     d => d.Login == filter.Login

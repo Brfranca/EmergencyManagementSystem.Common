@@ -70,6 +70,11 @@ namespace EmergencyManagementSystem.Common.DAL.Mapping
                  .HasColumnName("Company")
                  .HasColumnType("int")
                  .IsRequired();
+
+            builder.Property(d => d.Active)
+                .HasColumnName("Active")
+                .HasColumnType("smallint")
+                .IsRequired();
         }
     }
 }
