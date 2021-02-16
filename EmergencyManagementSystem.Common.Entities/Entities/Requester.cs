@@ -9,7 +9,7 @@ namespace EmergencyManagementSystem.Common.Entities.Entities
         public Guid Guid { get; set; }
         public string Name { get; set; }
         public string Telephone { get; set; }
-        public int AddressId { get; set; }
+        public long AddressId { get; set; }
         public virtual Address Address { get; set; }
     }
 }

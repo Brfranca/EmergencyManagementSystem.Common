@@ -15,6 +15,7 @@ namespace EmergencyManagementSystem.Common.DAL
             modelBuilder.ApplyConfiguration(new UserMapping());
             modelBuilder.ApplyConfiguration(new AddressMapping());
             modelBuilder.ApplyConfiguration(new EmployeeMapping());
+            modelBuilder.ApplyConfiguration(new RequesterMapping());
         }
     }
 
