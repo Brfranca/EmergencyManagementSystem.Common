@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EmergencyManagementSystem.Common.BLL.Validations;
 using EmergencyManagementSystem.Common.Common.Filters;
+using EmergencyManagementSystem.Common.Common.Interfaces;
 using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Common.Interfaces.DAL;
 using EmergencyManagementSystem.Common.Common.Models;
@@ -15,12 +16,14 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         private readonly IMapper _mapper;
         private readonly IRequesterDAL _requesterDAL;
         private readonly RequesterValidation _requesterValidation;
+        private readonly IAddressBLL _addressBLL;
         public RequesterBLL(IMapper mapper, IRequesterDAL requesterDAL,
-            RequesterValidation requesterValidation) : base(requesterDAL)
+            RequesterValidation requesterValidation, IAddressBLL addressBLL) : base(requesterDAL)
         {
             _mapper = mapper;
             _requesterDAL = requesterDAL;
             _requesterValidation = requesterValidation;
+            _addressBLL = addressBLL;
         }
 
         //exemplo de query e aplicacao de filtro e converversao de modelo.
@@ -66,11 +69,20 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             try
             {
                 Requester requester = _mapper.Map<Requester>(model);
+                requester.Guid = Guid.NewGuid();
+
+                var resultAdress = _addressBLL.Register(model.AddressModel);
+                if (!resultAdress.Success)
+                    return Result<Requester>.BuildError(resultAdress.Messages);
+
+                requester.Address = resultAdress.Model;
+
                 var result = _requesterValidation.Validate(requester);
                 if (!result.Success)
                     return result;
 
                 _requesterDAL.Insert(requester);
+
                 var resultSave = _requesterDAL.Save();
                 if (!resultSave.Success)
                     return Result<Requester>.BuildError(resultSave.Messages);

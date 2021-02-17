@@ -64,8 +64,8 @@ namespace EmergencyManagementSystem.Common.API
                 cfg.CreateMap<Address, AddressModel>();
                 cfg.CreateMap<EmployeeModel, Employee>().ForMember(a => a.Address, b => b.MapFrom(c => c.AddressModel));
                 cfg.CreateMap<Employee, EmployeeModel>().ForMember(a => a.AddressModel, b => b.MapFrom(c => c.Address));
-                cfg.CreateMap<RequesterModel, Requester>();
-                cfg.CreateMap<Requester, RequesterModel>();
+                cfg.CreateMap<RequesterModel, Requester>().ForMember(a => a.Address, b => b.MapFrom(c => c.AddressModel));
+                cfg.CreateMap<Requester, RequesterModel>().ForMember(a => a.AddressModel, b => b.MapFrom(c => c.Address));
 
             }).CreateMapper();
             services.AddSingleton(mapper);
