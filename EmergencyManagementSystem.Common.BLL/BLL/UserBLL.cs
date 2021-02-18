@@ -95,7 +95,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
                 if (!result.Success)
                     return result;
 
-                _userDAL.Insert(user);
+                _userDAL.Update(user);
                 var resultSave = _userDAL.Save();
                 if (!resultSave.Success)
                     return Result<User>.BuildError(resultSave.Messages);
