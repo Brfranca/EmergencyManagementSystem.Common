@@ -30,6 +30,9 @@ namespace EmergencyManagementSystem.Common.DAL.DAL
             else if (filter.Occupation > 0)
                 query = query.Where(d => d.Occupation == filter.Occupation);
 
+            else if (filter.Guid != Guid.Empty)
+                query = query.Where(d => d.Guid == filter.Guid);
+
             return query.FirstOrDefault();
         }
         
