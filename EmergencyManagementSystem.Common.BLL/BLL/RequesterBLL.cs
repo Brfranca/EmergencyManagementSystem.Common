@@ -99,7 +99,16 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         {
             try
             {
+                if (model.AddressId > 0)
+                    model.AddressModel.Id = model.AddressId;
+
                 Requester requester = _mapper.Map<Requester>(model);
+                var resultAddress = _addressBLL.Update(model.AddressModel);
+                if (!resultAddress.Success)
+                    return Result<Requester>.BuildError(resultAddress.Messages);
+
+                requester.Address = resultAddress.Model;
+
                 var result = _requesterValidation.Validate(requester);
                 if (!result.Success)
                     return result;

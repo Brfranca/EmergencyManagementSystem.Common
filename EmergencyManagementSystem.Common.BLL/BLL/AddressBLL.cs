@@ -92,11 +92,6 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
                     return result;
 
                 _addressDAL.Update(address);
-
-                var resultSave = _addressDAL.Save();
-                if (!resultSave.Success)
-                    return Result<Address>.BuildError(resultSave.Messages);
-
                 return Result<Address>.BuildSuccess(address);
             }
             catch (Exception error)
