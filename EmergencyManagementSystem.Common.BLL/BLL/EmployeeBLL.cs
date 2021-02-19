@@ -65,8 +65,8 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
                 query = query.Where(d => d.CPF.Contains(employeeFilter.CPF));
             if (employeeFilter.Occupation > 0)
                 query = query.Where(d => d.Occupation == employeeFilter.Occupation);
-            //if (!string.IsNullOrWhiteSpace(employeeFilter.Guid.ToString()))
-            //    query = query.Where(d => d.Guid.ToString().Contains(employeeFilter.Guid.ToString()));
+            if (employeeFilter.Guid != Guid.Empty)
+                query = query.Where(d => d.Guid == employeeFilter.Guid);
 
             return query.Include(d => d.Address).Select(d => _mapper.Map<EmployeeModel>(d));
         }
