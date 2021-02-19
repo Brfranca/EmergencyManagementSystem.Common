@@ -65,9 +65,9 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             try
             {
                 User user = _mapper.Map<User>(userModel);
+                var result = _userValidation.Validate(user);
                 user.Password = Hash.Create(userModel.Password);
 
-                var result = _userValidation.Validate(user);
                 if (!result.Success)
                     return result;
 
@@ -89,9 +89,9 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
             try
             {
                 User user = _mapper.Map<User>(userModel);
-                user.Password = Hash.Create(userModel.Password);
 
                 var result = _userValidation.Validate(user);
+                user.Password = Hash.Create(userModel.Password);
                 if (!result.Success)
                     return result;
 

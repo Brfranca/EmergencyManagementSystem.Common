@@ -27,8 +27,8 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("Usuário deve ser informado")
                 .NotNull()
                 .WithMessage("Usuário deve ser informado")
-                .Length(8, 100)
-                .WithMessage("Usuário deve conter entre 8 a 100 caracteres")
+                .Length(8, 20)
+                .WithMessage("Usuário deve conter entre 8 a 20 caracteres")
                 .Must(LoginIsValid)
                 .WithMessage("Usuário inválido");
 
@@ -38,8 +38,8 @@ namespace EmergencyManagementSystem.Common.BLL.Validations
                 .WithMessage("Senha deve ser informada")
                 .NotEmpty()
                 .WithMessage("Senha deve ser informada")
-                .Length(8, 100)
-                .WithMessage("Senha deve conter entre 8 a 100 caracteres");
+                .Length(8, 20)
+                .WithMessage("Senha deve conter entre 8 a 20 caracteres");
         }
 
         private bool LoginIsValid(string arg)
