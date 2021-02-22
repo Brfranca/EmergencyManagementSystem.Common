@@ -1,6 +1,7 @@
 ﻿using EmergencyManagementSystem.Common.Common.Interfaces.BLL;
 using EmergencyManagementSystem.Common.Entities.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace EmergencyManagementSystem.Common.Common.Filters
 {
@@ -11,6 +12,7 @@ namespace EmergencyManagementSystem.Common.Common.Filters
         public string Name { get; set; }
         public Occupation Occupation { get; set; }
         public Guid Guid { get; set; }
-
+        public bool IsMember { get; set; }
+        public List<Guid> EmployeeGuidWorking { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         private readonly IEmployeeDAL _employeeDAL;
         private readonly EmployeeValidation _employeeValidation;
         private readonly IAddressBLL _addressBLL;
+
         public EmployeeBLL(IEmployeeDAL employeeDAL, EmployeeValidation employeeValidation,
             IMapper mapper, IAddressBLL addressBLL) : base(employeeDAL)
         {
@@ -59,14 +60,31 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
         public override IQueryable<EmployeeModel> ApplyFilterPagination(IQueryable<Employee> query, IFilter filter)
         {
             var employeeFilter = (EmployeeFilter)filter;
-            if (!string.IsNullOrWhiteSpace(employeeFilter.Name))
-                query = query.Where(d => d.Name.Contains(employeeFilter.Name));
-            if (!string.IsNullOrWhiteSpace(employeeFilter.CPF))
-                query = query.Where(d => d.CPF.Contains(employeeFilter.CPF));
-            if (employeeFilter.Occupation > 0)
-                query = query.Where(d => d.Occupation == employeeFilter.Occupation);
-            if (employeeFilter.Guid != Guid.Empty)
-                query = query.Where(d => d.Guid == employeeFilter.Guid);
+
+            if (!employeeFilter.IsMember)
+            {
+                if (!string.IsNullOrWhiteSpace(employeeFilter.Name))
+                    query = query.Where(d => d.Name.Contains(employeeFilter.Name));
+                if (!string.IsNullOrWhiteSpace(employeeFilter.CPF))
+                    query = query.Where(d => d.CPF.Contains(employeeFilter.CPF));
+                if (employeeFilter.Occupation > 0)
+                    query = query.Where(d => d.Occupation == employeeFilter.Occupation);
+                if (employeeFilter.Guid != Guid.Empty)
+                    query = query.Where(d => d.Guid == employeeFilter.Guid);
+            }
+            else
+            {
+                if (employeeFilter.Occupation > 0)
+                    query = query.Where(d => d.Occupation == employeeFilter.Occupation);
+                else
+                {
+                    query = query.Where
+                        (
+                            d => !new[] { Occupation.RO, Occupation.TARM }.Contains(d.Occupation)
+                            && !employeeFilter.EmployeeGuidWorking.Contains(d.Guid)
+                        );
+                }
+            }
 
             return query.Include(d => d.Address).Select(d => _mapper.Map<EmployeeModel>(d));
         }
