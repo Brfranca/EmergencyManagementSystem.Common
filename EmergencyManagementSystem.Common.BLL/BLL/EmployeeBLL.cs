@@ -77,13 +77,10 @@ namespace EmergencyManagementSystem.Common.BLL.BLL
                 if (employeeFilter.Occupation > 0)
                     query = query.Where(d => d.Occupation == employeeFilter.Occupation);
                 else
-                {
-                    query = query.Where
-                        (
-                            d => !new[] { Occupation.RO, Occupation.TARM }.Contains(d.Occupation)
-                            && !employeeFilter.EmployeeGuidWorking.Contains(d.Guid)
-                        );
-                }
+                    query = query.Where(d => !new[] { Occupation.RO, Occupation.TARM }.Contains(d.Occupation));
+
+                if (employeeFilter.EmployeeGuidWorking.Any())
+                    query = query.Where(d => !employeeFilter.EmployeeGuidWorking.Contains(d.Guid));
             }
 
             return query.Include(d => d.Address).Select(d => _mapper.Map<EmployeeModel>(d));
