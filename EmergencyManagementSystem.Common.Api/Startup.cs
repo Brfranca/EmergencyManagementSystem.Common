@@ -31,7 +31,6 @@ namespace EmergencyManagementSystem.Common.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddHealthChecks();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -40,8 +39,7 @@ namespace EmergencyManagementSystem.Common.API
 
             services.AddDbContext<Context>(options =>
             {
-                options.UseSqlServer(
-                Configuration.GetConnectionString("Default"));
+                options.UseSqlServer("Server=tcp:tiago.database.windows.net,1433;Initial Catalog=EMS-Common;Persist Security Info=False;User ID=tiago;Password=Beatriz1994;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
                 options.UseLazyLoadingProxies();
             }, ServiceLifetime.Scoped);
 
@@ -74,16 +72,12 @@ namespace EmergencyManagementSystem.Common.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Context context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EmergencyManagementSystem.Common.API v1"));
-            }
 
-            app.UseHealthChecks("/health");
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EmergencyManagementSystem.Common.API v1"));
 
             app.UseHttpsRedirection();
 
@@ -94,10 +88,7 @@ namespace EmergencyManagementSystem.Common.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("/health");
             });
-
-            context.Database.Migrate();
         }
     }
 }
